@@ -28,7 +28,7 @@ ini_set('display_errors', 1); //Atauerror_reporting(E_ALL && ~E_NOTICE);
     <title>Sistem Informasi Keuangan Alfatmah</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
 
-    <link rel="icon" type="image/png" sizes="16x16" href="..assets/img/logo-alfatmah_new.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/img/logo-alfatmah_new.png" />
 
     <link href="../assets/plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
     <link rel="stylesheet"

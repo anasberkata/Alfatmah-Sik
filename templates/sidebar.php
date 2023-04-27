@@ -40,7 +40,7 @@
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_master/pembayaran.php"
                         aria-expanded="false">
                         <i class="fas fa-chart-pie" aria-hidden="true"></i>
-                        <span class="hide-menu">Data Pembayaran</span>
+                        <span class="hide-menu">Jenis Pembayaran</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
