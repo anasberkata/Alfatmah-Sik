@@ -15,6 +15,7 @@ function query($query)
     return $rows;
 }
 
+// ----------------------------------------------------------------------------------------------------------
 // PENGGUNA
 function pengguna_add($data)
 {
@@ -123,6 +124,7 @@ function profile_edit($data)
     return mysqli_affected_rows($conn);
 }
 
+// ----------------------------------------------------------------------------------------------------------
 // GURU
 function guru_add($data)
 {
@@ -176,6 +178,7 @@ function guru_delete($id_guru)
     return mysqli_affected_rows($conn);
 }
 
+// ----------------------------------------------------------------------------------------------------------
 // ROMBEL
 function rombel_add($data)
 {
@@ -235,6 +238,7 @@ function rombel_delete($id_rombel)
     return mysqli_affected_rows($conn);
 }
 
+// ----------------------------------------------------------------------------------------------------------
 // SISWA
 function siswa_add($data)
 {
@@ -321,7 +325,8 @@ function siswa_delete($id_siswa)
     return mysqli_affected_rows($conn);
 }
 
-// PEMBAYARAN
+// ----------------------------------------------------------------------------------------------------------
+// JENIS PEMBAYARAN
 function jenis_pembayaran_add($data)
 {
     global $conn;
@@ -374,4 +379,224 @@ function jenis_pembayaran_delete($id_jenis_pembayaran)
     return mysqli_affected_rows($conn);
 }
 
+// ----------------------------------------------------------------------------------------------------------
 // KWITANSI
+function kwitansi_edit($data)
+{
+    global $conn;
+
+    $yayasan = $data["yayasan"];
+    $sekolah = $data["sekolah"];
+    $id_bendahara = $data["id_bendahara"];
+
+    $logo_lama = $data["logo_lama"];
+    $ttd_lama = $data["ttd_lama"];
+
+    if ($_FILES["logo"]["error"] === 4) {
+        $logo = $logo_lama;
+    } else {
+        $logo = upload_logo();
+    }
+
+    if ($_FILES["ttd"]["error"] === 4) {
+        $ttd = $ttd_lama;
+    } else {
+        $ttd = upload_ttd();
+    }
+
+    $query = "UPDATE kwitansi SET
+			logo = '$logo',
+			yayasan = '$yayasan',
+			sekolah = '$sekolah',
+			id_bendahara = '$id_bendahara',
+			ttd = '$ttd'
+			";
+
+    mysqli_query(
+        $conn,
+        $query
+    );
+
+    return mysqli_affected_rows($conn);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ----------------------------------------------------------------------------------------------------------
+// PEMBAYARAN
+function pembayaran_add($data)
+{
+    global $conn;
+
+
+    $id_siswa = $data["id_siswa"];
+    $id_jenis_pembayaran = $data["id_jenis_pembayaran"];
+    $bbp_bulan = $data["bbp_bulan"];
+    $nominal = $data["nominal"];
+    $tanggal_pembayaran = $data["tanggal_pembayaran"];
+
+    $bukti = "#";
+    $status = "Diterima";
+
+    $query = "INSERT INTO pembayaran
+				VALUES
+			(NULL, '$id_siswa', '$id_jenis_pembayaran', '$nominal', '$tanggal_pembayaran', '$bukti', '$status')
+			";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+function pembayaran_edit($data)
+{
+    global $conn;
+
+    $id_pembayaran = $data["id_pembayaran"];
+    $id_siswa = $data["id_siswa"];
+    $id_jenis_pembayaran = $data["id_jenis_pembayaran"];
+    $nominal = $data["nominal"];
+    $tanggal_pembayaran = $data["tanggal_pembayaran"];
+    $bukti = $data["bukti"];
+    $status = $data["status"];
+
+    $query = "UPDATE pembayaran SET
+			id_siswa = '$id_siswa',
+			id_jenis_pembayaran = '$id_jenis_pembayaran',
+			nominal = '$nominal',
+			tanggal_pembayaran = '$tanggal_pembayaran',
+			bukti = '$bukti',
+			status = '$status'
+
+            WHERE id_pembayaran = $id_pembayaran
+			";
+
+    mysqli_query(
+        $conn,
+        $query
+    );
+
+    return mysqli_affected_rows($conn);
+}
+
+function pembayaran_delete($id_pembayaran)
+{
+    global $conn;
+
+    $pembayaran_delete = mysqli_query($conn, "DELETE FROM pembayaran WHERE id_pembayaran = $id_pembayaran");
+
+    return mysqli_affected_rows($conn);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ----------------------------------------------------------------------------------------------------------
+// UPLOAD GAMBAR
+function upload_logo()
+{
+    $namaFile = $_FILES["logo"]["name"];
+    $ukuranFile = $_FILES["logo"]["size"];
+    $error = $_FILES["logo"]["error"];
+    $tmpName = $_FILES["logo"]["tmp_name"];
+
+    $ekstensiFileValid = ["png"];
+    $ekstensiFile = explode(".", $namaFile);
+    $ekstensiFile = strtolower(end($ekstensiFile));
+
+    if (!in_array($ekstensiFile, $ekstensiFileValid)) {
+        echo "<script>
+                alert('Gambar yang diupload bukan .png!');
+            </script>";
+
+        return false;
+    }
+
+    // max 10mb
+    if ($ukuranFile > 20000000) {
+        echo "<script>
+                alert('Ukuran gambar terlalu besar, Maksimal 20mb!');
+            </script>";
+
+        return false;
+    }
+
+    $namaFileBaru = uniqid();
+    $namaFileBaru .= '.';
+    $namaFileBaru .= $ekstensiFile;
+
+    move_uploaded_file($tmpName, "../assets/img/logo_kwitansi/" . $namaFileBaru);
+
+    return $namaFileBaru;
+}
+
+function upload_ttd()
+{
+    $namaFile = $_FILES["ttd"]["name"];
+    $ukuranFile = $_FILES["ttd"]["size"];
+    $error = $_FILES["ttd"]["error"];
+    $tmpName = $_FILES["ttd"]["tmp_name"];
+
+    $ekstensiFileValid = ["png"];
+    $ekstensiFile = explode(".", $namaFile);
+    $ekstensiFile = strtolower(end($ekstensiFile));
+
+    if (!in_array($ekstensiFile, $ekstensiFileValid)) {
+        echo "<script>
+                alert('Gambar yang diupload bukan .png!');
+            </script>";
+
+        return false;
+    }
+
+    // max 10mb
+    if ($ukuranFile > 20000000) {
+        echo "<script>
+                alert('Ukuran gambar terlalu besar, Maksimal 20mb!');
+            </script>";
+
+        return false;
+    }
+
+    $namaFileBaru = uniqid();
+    $namaFileBaru .= '.';
+    $namaFileBaru .= $ekstensiFile;
+
+    move_uploaded_file($tmpName, "../assets/img/ttd/" . $namaFileBaru);
+
+    return $namaFileBaru;
+}

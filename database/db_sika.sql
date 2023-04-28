@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 27, 2023 at 11:04 PM
+-- Generation Time: Apr 28, 2023 at 09:23 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -62,8 +62,46 @@ CREATE TABLE `jenis_pembayaran` (
 --
 
 INSERT INTO `jenis_pembayaran` (`id_jenis_pembayaran`, `jenis_pembayaran`, `nominal`, `deskripsi`) VALUES
-(1, 'BPP (Biaya Pengembangan Pendidikan)', 3000000, 'Bisa diangsur selama masih menjadi siswa'),
-(2, 'BBP (Biaya Bulanan Pendidikan)', 250000, 'Dibayar pada tanggal 1-5 di setiap bulannya');
+(1, 'BPP', 900000, '(Biaya Pengembangan Pendidikan)'),
+(2, 'BBP', 90000, '(Biaya Bulanan Pendidikan)');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kwitansi`
+--
+
+CREATE TABLE `kwitansi` (
+  `logo` varchar(255) NOT NULL,
+  `yayasan` varchar(255) NOT NULL,
+  `sekolah` varchar(255) NOT NULL,
+  `id_bendahara` int(11) NOT NULL,
+  `ttd` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `kwitansi`
+--
+
+INSERT INTO `kwitansi` (`logo`, `yayasan`, `sekolah`, `id_bendahara`, `ttd`) VALUES
+('644bd8df2351a.png', 'YAYASAN PONDOK PASANTREN AL-FATMAH', 'SMK AL-FATMAH CIANJUR', 3, '644bd8eded95b.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pembayaran`
+--
+
+CREATE TABLE `pembayaran` (
+  `id_pembayaran` int(11) NOT NULL,
+  `id_siswa` int(11) NOT NULL,
+  `id_jenis_pembayaran` int(11) NOT NULL,
+  `bbp_bulan` date NOT NULL,
+  `nominal` int(11) NOT NULL,
+  `tanggal_pembayaran` date NOT NULL,
+  `bukti` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -82,9 +120,9 @@ CREATE TABLE `rombel` (
 --
 
 INSERT INTO `rombel` (`id_rombel`, `rombel`, `id_guru`) VALUES
-(1, 'X DKV 1', 1),
-(3, 'X DKV 2', 2),
-(4, 'X KA', 4);
+(1, 'X PB 1', 1),
+(3, 'X PB 2', 2),
+(4, 'X PB 3', 4);
 
 -- --------------------------------------------------------
 
@@ -114,7 +152,8 @@ CREATE TABLE `siswa` (
 
 INSERT INTO `siswa` (`id_siswa`, `nis`, `nisn`, `nama_siswa`, `id_rombel`, `jk`, `alamat`, `phone`, `username`, `password`, `gambar`, `date_created`, `is_active`) VALUES
 (1, 123456, 123456, 'Udin Petot', 1, 'Laki-Laki', 'Perumahan Permata Indehoy', '080000000', 'siswa01', 'siswa01', 'default.jpg', '2023-04-27', 1),
-(2, 654321, 654321, 'Petot Marwati', 3, 'Perempuan', 'Kampung Monyet Cacat', '08176175283', 'siswa02', 'siswa02', 'default.jpg', '2023-04-27', 1);
+(2, 654321, 654321, 'Petot Marwati', 1, 'Perempuan', 'Kampung Monyet Cacat', '08176175283', 'siswa02', 'siswa02', 'default.jpg', '2023-04-27', 1),
+(4, 203762265, 203762265, 'Itih Suritih', 3, 'Perempuan', 'Cicicuit', '092897986374', 'siswa03', 'siswa03', 'default.jpg', '2023-04-28', 1);
 
 -- --------------------------------------------------------
 
@@ -140,7 +179,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `nama`, `username`, `email`, `password`, `image`, `role_id`, `date_created`, `is_active`) VALUES
 (1, 'Indra Lesmana', 'admin', 'indralesmana@gmail.com', 'admin', 'default.jpg', 1, '2023-04-26', 1),
-(3, 'Bendahara Alfatmah', 'bendahara', 'bendahara@gmail.com', 'bendahara', 'default.jpg', 2, '2023-04-26', 1);
+(3, 'Bendahara Alfatmah', 'bendahara', 'bendahara@gmail.com', 'bendahara', 'default.jpg', 2, '2023-04-26', 1),
+(5, 'Bendahara Alfatmah 2', 'bendahara02', 'bendahara02@gmail.com', 'bendahara02', 'default.jpg', 2, '2023-04-28', 1);
 
 -- --------------------------------------------------------
 
@@ -177,6 +217,12 @@ ALTER TABLE `guru`
 --
 ALTER TABLE `jenis_pembayaran`
   ADD PRIMARY KEY (`id_jenis_pembayaran`);
+
+--
+-- Indexes for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  ADD PRIMARY KEY (`id_pembayaran`);
 
 --
 -- Indexes for table `rombel`
@@ -219,6 +265,12 @@ ALTER TABLE `jenis_pembayaran`
   MODIFY `id_jenis_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `rombel`
 --
 ALTER TABLE `rombel`
@@ -228,13 +280,13 @@ ALTER TABLE `rombel`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users_role`

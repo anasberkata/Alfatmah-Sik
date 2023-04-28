@@ -54,8 +54,8 @@
                 <li class="sidebar-header d-none d-lg-block mt-3">Data Keuangan</li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_bendahara/pembayaran.php"
-                        aria-expanded="false">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        href="../view_pembayaran/pembayaran.php" aria-expanded="false">
                         <i class="fas fa-chart-pie" aria-hidden="true"></i>
                         <span class="hide-menu">Pembayaran</span>
                     </a>
