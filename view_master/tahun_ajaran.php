@@ -47,6 +47,7 @@ $tahun_ajaran = query(
                         <thead>
                             <tr>
                                 <th class="border-top-0">No.</th>
+                                <th class="border-top-0">ID Tahun Ajaran</th>
                                 <th class="border-top-0">Tahun Ajaran</th>
                                 <th class="border-top-0">Aksi</th>
                             </tr>
@@ -57,6 +58,9 @@ $tahun_ajaran = query(
                                 <tr>
                                     <td>
                                         <?= $i; ?>
+                                    </td>
+                                    <td class="txt-oflo">
+                                        <?= $aj["id_tahun_ajaran"]; ?>
                                     </td>
                                     <td class="txt-oflo">
                                         <?= $aj["tahun_ajaran"]; ?>

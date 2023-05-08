@@ -30,9 +30,12 @@ ini_set('display_errors', 1); //Atauerror_reporting(E_ALL && ~E_NOTICE);
 
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/img/logo-alfatmah_new.png" />
 
-    <link href="../assets/plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
+    <!-- <link href="../assets/plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet"> -->
     <link rel="stylesheet"
         href="../assets/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
+
+    <!-- Datatables -->
+    <link rel="stylesheet" href="../vendor/simple-datatables/style.css">
 
     <link href="../assets/css/style.min.css" rel="stylesheet">
     <style>

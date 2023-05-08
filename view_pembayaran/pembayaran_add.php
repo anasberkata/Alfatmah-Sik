@@ -55,6 +55,31 @@ if (isset($_POST["add_pembayaran"])) {
                         </select>
                     </div> -->
                 </div>
+
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#bpp">BPP</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#bbp">BBP</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="bpp" class="tab-pane active">
+                        <h3>Home</h3>
+                        <p>Content for the home tab goes here.</p>
+                    </div>
+                    <div id="bbp" class="tab-pane">
+                        <h3>Profile</h3>
+                        <p>Content for the profile tab goes here.</p>
+                    </div>
+                </div>
+
+
+
+
+
                 <form class="form-horizontal form-material" action="" method="POST">
                     <div class="row">
                         <div class="col-12 col-lg-6">

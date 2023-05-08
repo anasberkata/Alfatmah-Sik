@@ -5,7 +5,9 @@ include "../templates/header.php";
 $siswa = query(
     "SELECT * FROM siswa
     INNER JOIN rombel ON rombel.id_rombel = siswa.id_rombel
-    INNER JOIN guru ON guru.id_guru = rombel.id_guru"
+    INNER JOIN tahun_ajaran ON tahun_ajaran.id_tahun_ajaran = siswa.id_tahun_ajaran
+    INNER JOIN guru ON guru.id_guru = rombel.id_guru
+    ORDER BY siswa.id_tahun_ajaran ASC, rombel.rombel ASC"
 );
 ?>
 
@@ -51,13 +53,13 @@ $siswa = query(
                     </div> -->
                 </div>
                 <div class="table-responsive">
-                    <table class="table no-wrap">
+                    <table class="table no-wrap" id="data-table">
                         <thead>
                             <tr>
                                 <th class="border-top-0">No.</th>
                                 <th class="border-top-0">NIS / NISN</th>
                                 <th class="border-top-0">Nama</th>
-                                <th class="border-top-0">Kelas</th>
+                                <th class="border-top-0">Kelas / Tahun Ajaran</th>
                                 <th class="border-top-0">Wali Kelas</th>
                                 <th class="border-top-0">Aksi</th>
                             </tr>
@@ -78,6 +80,8 @@ $siswa = query(
                                     </td>
                                     <td>
                                         <?= $s["rombel"]; ?>
+                                        <br>
+                                        <?= $s["tahun_ajaran"]; ?>
                                     </td>
                                     <td class="txt-oflo">
                                         <?= $s["nama_guru"]; ?>

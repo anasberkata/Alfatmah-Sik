@@ -3,6 +3,7 @@ session_start();
 include "../templates/header.php";
 
 $rombel = query("SELECT * FROM rombel");
+$tahun_ajaran = query("SELECT * FROM tahun_ajaran");
 
 if (isset($_POST["add_siswa"])) {
     if (siswa_add($_POST) > 0) {
@@ -76,21 +77,6 @@ if (isset($_POST["add_siswa"])) {
                                 </div>
                             </div>
                             <div class="form-group mb-4">
-                                <label class="col-md-12 p-0">Username</label>
-                                <div class="col-md-12 border-bottom p-0">
-                                    <input type="text" class="form-control p-0 border-0" name="username" />
-                                </div>
-                            </div>
-                            <div class="form-group mb-4">
-                                <label class="col-md-12 p-0">Password</label>
-                                <div class="col-md-12 border-bottom p-0">
-                                    <input type="password" class="form-control p-0 border-0" name="password" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-lg-6">
-                            <div class="form-group mb-4">
                                 <label class="col-sm-12">Jenis Kelamin</label>
 
                                 <div class="col-sm-12 border-bottom">
@@ -101,6 +87,21 @@ if (isset($_POST["add_siswa"])) {
                                 </div>
                             </div>
                             <div class="form-group mb-4">
+                                <label class="col-md-12 p-0">Username</label>
+                                <div class="col-md-12 border-bottom p-0">
+                                    <input type="text" class="form-control p-0 border-0" name="username" />
+                                </div>
+                            </div>
+                            <!-- <div class="form-group mb-4">
+                                <label class="col-md-12 p-0">Password</label>
+                                <div class="col-md-12 border-bottom p-0">
+                                    <input type="password" class="form-control p-0 border-0" name="password" />
+                                </div>
+                            </div> -->
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group mb-4">
                                 <label class="col-sm-12">Rombel</label>
 
                                 <div class="col-sm-12 border-bottom">
@@ -109,6 +110,20 @@ if (isset($_POST["add_siswa"])) {
                                         <option>Pilih Rombel</option>
                                         <?php foreach ($rombel as $r): ?>
                                             <option value="<?= $r["id_rombel"]; ?>"><?= $r["rombel"]; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label class="col-sm-12">Tahun Ajaran</label>
+
+                                <div class="col-sm-12 border-bottom">
+                                    <select class="form-select shadow-none p-0 border-0 form-control-line"
+                                        name="id_tahun_ajaran">
+                                        <option>Pilih Tahun Ajaran</option>
+                                        <?php foreach ($tahun_ajaran as $ta): ?>
+                                            <option value="<?= $ta["id_tahun_ajaran"]; ?>"><?= $ta["tahun_ajaran"]; ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>

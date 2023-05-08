@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 08, 2023 at 10:30 AM
+-- Generation Time: May 08, 2023 at 10:12 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -96,7 +96,8 @@ CREATE TABLE `pembayaran` (
   `id_pembayaran` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `id_jenis_pembayaran` int(11) NOT NULL,
-  `bbp_bulan` date NOT NULL,
+  `bbp_bulan` varchar(50) NOT NULL,
+  `bpp_tahun` varchar(50) NOT NULL,
   `nominal` int(11) NOT NULL,
   `tanggal_pembayaran` date NOT NULL,
   `bukti` varchar(255) NOT NULL,
@@ -142,6 +143,7 @@ CREATE TABLE `siswa` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `gambar` varchar(255) NOT NULL,
+  `id_tahun_ajaran` int(11) NOT NULL,
   `date_created` date NOT NULL,
   `is_active` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -150,10 +152,15 @@ CREATE TABLE `siswa` (
 -- Dumping data for table `siswa`
 --
 
-INSERT INTO `siswa` (`id_siswa`, `nis`, `nisn`, `nama_siswa`, `id_rombel`, `jk`, `alamat`, `phone`, `username`, `password`, `gambar`, `date_created`, `is_active`) VALUES
-(5, 123456, 123456, 'Udin Petot', 1, 'Laki-Laki', 'Perumahan Permata Indehoy', '80000000', 'siswa01', 'siswa01', 'default.jpg', '2023-05-08', 1),
-(6, 654321, 654321, 'Petot Marwati', 1, 'Perempuan', 'Kampung Monyet Cacat', '8176175283', 'siswa02', 'siswa02', 'default.jpg', '2023-05-08', 1),
-(7, 203762265, 203762265, 'Itih Suritih', 3, 'Perempuan', 'Cicicuit', '92897986374', 'siswa03', 'siswa03', 'default.jpg', '2023-05-08', 1);
+INSERT INTO `siswa` (`id_siswa`, `nis`, `nisn`, `nama_siswa`, `id_rombel`, `jk`, `alamat`, `phone`, `username`, `password`, `gambar`, `id_tahun_ajaran`, `date_created`, `is_active`) VALUES
+(5, 123456, 123456, 'Udin Petot', 1, 'Laki-Laki', 'Perumahan Permata Indehoy', '80000000', 'siswa01', 'siswa01', 'default.jpg', 1, '2023-05-08', 1),
+(6, 654321, 654321, 'Petot Marwati', 1, 'Perempuan', 'Kampung Monyet Cacat', '8176175283', 'siswa02', 'siswa02', 'default.jpg', 1, '2023-05-08', 1),
+(7, 203762265, 203762265, 'Itih Suritih', 3, 'Perempuan', 'Cicicuit', '92897986374', 'siswa03', 'siswa03', 'default.jpg', 1, '2023-05-08', 1),
+(8, 123, 123, 'qwer', 4, 'Perempuan', 'qw', '123', 'qwer', 'qwr', 'default.jpg', 1, '2023-05-08', 1),
+(9, 234, 324, 'dfghdfhdfg', 3, 'Laki-Laki', 'dfghfgh', '234523', 'dfghdfgh', 'dfghdfgh', 'default.jpg', 1, '2023-05-08', 1),
+(10, 123123123, 123123123, 'zxczxc', 4, 'Laki-Laki', 'zxc', '123', 'zxczxc', 'zxczxc', 'default.jpg', 1, '2023-05-08', 1),
+(11, 51911165, 51911165, 'Eka Anas Jatnika', 1, 'Laki-Laki', 'Cianjur', '80000000', 'siswa01', 'siswa01', 'default.jpg', 1, '2023-05-08', 1),
+(12, 51911166, 51911166, 'Anas Jatnika', 3, 'Laki-Laki', 'Bandung', '80000000', 'siswa02', 'siswa02', 'default.jpg', 2, '2023-05-08', 1);
 
 -- --------------------------------------------------------
 
@@ -306,7 +313,7 @@ ALTER TABLE `rombel`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`

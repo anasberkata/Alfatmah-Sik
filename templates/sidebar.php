@@ -62,23 +62,26 @@
 
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="../view_pembayaran/pembayaran.php" aria-expanded="false">
+                        href="../view_pembayaran/pembayaran_add.php" aria-expanded="false">
                         <i class="fas fa-chart-pie text-info" aria-hidden="true"></i>
-                        <span class="hide-menu">Pembayaran BPP</span>
+                        <span class="hide-menu">Pembayaran</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="../view_pembayaran/pembayaran.php" aria-expanded="false">
-                        <i class="fas fa-chart-pie text-success" aria-hidden="true"></i>
-                        <span class="hide-menu">Pembayaran BBP</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="../view_pembayaran/pembayaran.php" aria-expanded="false">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_pembayaran/riwayat.php"
+                        aria-expanded="false">
                         <i class="fas fa-chart-pie text-warning" aria-hidden="true"></i>
                         <span class="hide-menu">Riwayat Pembayaran</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-header d-none d-lg-block mt-3">Data Laporan</li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_laporan/laporan.php"
+                        aria-expanded="false">
+                        <i class="fas fa-file-pdf" aria-hidde n="true"></i>
+                        <span class="hide-menu">Laporan Pembayaran</span>
                     </a>
                 </li>
 

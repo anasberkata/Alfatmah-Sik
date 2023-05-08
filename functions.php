@@ -252,9 +252,9 @@ function siswa_add($data)
     $alamat = $data["alamat"];
     $phone = $data["phone"];
     $username = $data["username"];
-    $password = $data["password"];
-
+    $password = $data["username"];
     $gambar = "default.jpg";
+    $id_tahun_ajaran = $data["id_tahun_ajaran"];
 
     $date_created = date("Y-m-d");
     $is_active = 1;
@@ -270,7 +270,7 @@ function siswa_add($data)
     } else {
         $query = "INSERT INTO siswa
 				VALUES
-			(NULL, '$nis', '$nisn', '$nama_siswa', '$id_rombel', '$jk', '$alamat', '$phone', '$username', '$password', '$gambar', '$date_created', '$is_active')
+			(NULL, '$nis', '$nisn', '$nama_siswa', '$id_rombel', '$jk', '$alamat', '$phone', '$username', '$password', '$gambar', '$id_tahun_ajaran', '$date_created', '$is_active')
 			";
 
         mysqli_query($conn, $query);
@@ -312,12 +312,13 @@ function siswa_import($data)
         $username = $data_excel->val($i, 9);
         $password = $data_excel->val($i, 10);
         $gambar = "default.jpg";
+        $id_tahun_ajaran = $data_excel->val($i, 11);
         $date_created = date("Y-m-d");
         $is_active = 1;
 
         if ($nis != "" && $nisn != "" && $nama_siswa != "" && $id_rombel != "") {
             // input data ke database (table barang)
-            mysqli_query($conn, "INSERT INTO siswa VALUES(NULL,'$nis','$nisn','$nama_siswa', '$id_rombel', '$jk', '$alamat', '$phone', '$username', '$password', '$gambar', '$date_created', '$is_active')");
+            mysqli_query($conn, "INSERT INTO siswa VALUES(NULL,'$nis','$nisn','$nama_siswa', '$id_rombel', '$jk', '$alamat', '$phone', '$username', '$password', '$gambar', '$id_tahun_ajaran', '$date_created', '$is_active')");
         }
     }
 
@@ -340,6 +341,7 @@ function siswa_edit($data)
     $jk = $data["jk"];
     $alamat = $data["alamat"];
     $phone = $data["phone"];
+    $id_tahun_ajaran = $data["id_tahun_ajaran"];
     $username = $data["username"];
     $password = $data["password"];
 
@@ -351,6 +353,7 @@ function siswa_edit($data)
 			jk = '$jk',
 			alamat = '$alamat',
 			phone = '$phone',
+			id_tahun_ajaran = '$id_tahun_ajaran',
 			username = '$username',
 			password = '$password'
 

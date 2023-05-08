@@ -7,11 +7,13 @@ $id_siswa = $_GET["id_siswa"];
 $s = query(
     "SELECT * FROM siswa
     INNER JOIN rombel ON rombel.id_rombel = siswa.id_rombel
+    INNER JOIN tahun_ajaran ON tahun_ajaran.id_tahun_ajaran = siswa.id_tahun_ajaran
     INNER JOIN guru ON guru.id_guru = rombel.id_guru
     WHERE id_siswa = $id_siswa"
 )[0];
 
 $rombel = query("SELECT * FROM rombel");
+$tahun_ajaran = query("SELECT * FROM tahun_ajaran");
 
 if (isset($_POST["edit_siswa"])) {
     if (siswa_edit($_POST) > 0) {
@@ -127,6 +129,20 @@ if (isset($_POST["edit_siswa"])) {
                                         <option value="<?= $s["id_rombel"] ?>"><?= $s["rombel"] ?></option>
                                         <?php foreach ($rombel as $r): ?>
                                             <option value="<?= $r["id_rombel"]; ?>"><?= $r["rombel"]; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label class="col-sm-12">Tahun Ajaran</label>
+
+                                <div class="col-sm-12 border-bottom">
+                                    <select class="form-select shadow-none p-0 border-0 form-control-line"
+                                        name="id_tahun_ajaran">
+                                        <option value="<?= $s["id_tahun_ajaran"] ?>"><?= $s["tahun_ajaran"] ?></option>
+                                        <?php foreach ($tahun_ajaran as $ta): ?>
+                                            <option value="<?= $ta["id_tahun_ajaran"]; ?>"><?= $ta["tahun_ajaran"]; ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
