@@ -37,6 +37,13 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_master/tahun_ajaran.php"
+                        aria-expanded="false">
+                        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                        <span class="hide-menu">Data Tahun Ajaran</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_master/pembayaran.php"
                         aria-expanded="false">
                         <i class="fas fa-chart-pie" aria-hidden="true"></i>
@@ -56,8 +63,22 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="../view_pembayaran/pembayaran.php" aria-expanded="false">
-                        <i class="fas fa-chart-pie" aria-hidden="true"></i>
-                        <span class="hide-menu">Pembayaran</span>
+                        <i class="fas fa-chart-pie text-info" aria-hidden="true"></i>
+                        <span class="hide-menu">Pembayaran BPP</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        href="../view_pembayaran/pembayaran.php" aria-expanded="false">
+                        <i class="fas fa-chart-pie text-success" aria-hidden="true"></i>
+                        <span class="hide-menu">Pembayaran BBP</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        href="../view_pembayaran/pembayaran.php" aria-expanded="false">
+                        <i class="fas fa-chart-pie text-warning" aria-hidden="true"></i>
+                        <span class="hide-menu">Riwayat Pembayaran</span>
                     </a>
                 </li>
 

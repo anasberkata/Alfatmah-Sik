@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 28, 2023 at 09:23 PM
+-- Generation Time: May 08, 2023 at 10:30 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -151,9 +151,29 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id_siswa`, `nis`, `nisn`, `nama_siswa`, `id_rombel`, `jk`, `alamat`, `phone`, `username`, `password`, `gambar`, `date_created`, `is_active`) VALUES
-(1, 123456, 123456, 'Udin Petot', 1, 'Laki-Laki', 'Perumahan Permata Indehoy', '080000000', 'siswa01', 'siswa01', 'default.jpg', '2023-04-27', 1),
-(2, 654321, 654321, 'Petot Marwati', 1, 'Perempuan', 'Kampung Monyet Cacat', '08176175283', 'siswa02', 'siswa02', 'default.jpg', '2023-04-27', 1),
-(4, 203762265, 203762265, 'Itih Suritih', 3, 'Perempuan', 'Cicicuit', '092897986374', 'siswa03', 'siswa03', 'default.jpg', '2023-04-28', 1);
+(5, 123456, 123456, 'Udin Petot', 1, 'Laki-Laki', 'Perumahan Permata Indehoy', '80000000', 'siswa01', 'siswa01', 'default.jpg', '2023-05-08', 1),
+(6, 654321, 654321, 'Petot Marwati', 1, 'Perempuan', 'Kampung Monyet Cacat', '8176175283', 'siswa02', 'siswa02', 'default.jpg', '2023-05-08', 1),
+(7, 203762265, 203762265, 'Itih Suritih', 3, 'Perempuan', 'Cicicuit', '92897986374', 'siswa03', 'siswa03', 'default.jpg', '2023-05-08', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tahun_ajaran`
+--
+
+CREATE TABLE `tahun_ajaran` (
+  `id_tahun_ajaran` int(11) NOT NULL,
+  `tahun_ajaran` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tahun_ajaran`
+--
+
+INSERT INTO `tahun_ajaran` (`id_tahun_ajaran`, `tahun_ajaran`) VALUES
+(1, '2021 - 2022'),
+(2, '2022 - 2023'),
+(3, '2023 - 2024');
 
 -- --------------------------------------------------------
 
@@ -237,6 +257,12 @@ ALTER TABLE `siswa`
   ADD PRIMARY KEY (`id_siswa`);
 
 --
+-- Indexes for table `tahun_ajaran`
+--
+ALTER TABLE `tahun_ajaran`
+  ADD PRIMARY KEY (`id_tahun_ajaran`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -280,7 +306,13 @@ ALTER TABLE `rombel`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `tahun_ajaran`
+--
+ALTER TABLE `tahun_ajaran`
+  MODIFY `id_tahun_ajaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`

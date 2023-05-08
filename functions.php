@@ -279,6 +279,55 @@ function siswa_add($data)
     return mysqli_affected_rows($conn);
 }
 
+
+function siswa_import($data)
+{
+    global $conn;
+    include "vendor/import_excel/excel_reader.php";
+
+    // upload file xls
+    $target = basename($_FILES['file_excel']['name']);
+    move_uploaded_file($_FILES['file_excel']['tmp_name'], $target);
+
+    // beri permisi agar file xls dapat di baca
+    chmod($_FILES['file_excel']['name'], 0777);
+
+    // mengambil isi file xls
+    $data_excel = new Spreadsheet_Excel_Reader($_FILES['file_excel']['name'], false);
+    // menghitung jumlah baris data yang ada
+    $jumlah_baris = $data_excel->rowcount($sheet_index = 0);
+
+    // jumlah default data yang berhasil di import
+
+    for ($i = 2; $i <= $jumlah_baris; $i++) {
+
+        // menangkap data dan memasukkan ke variabel sesuai dengan kolumnya masing-masing
+        $nis = $data_excel->val($i, 2);
+        $nisn = $data_excel->val($i, 3);
+        $nama_siswa = $data_excel->val($i, 4);
+        $id_rombel = $data_excel->val($i, 5);
+        $jk = $data_excel->val($i, 6);
+        $alamat = $data_excel->val($i, 7);
+        $phone = $data_excel->val($i, 8);
+        $username = $data_excel->val($i, 9);
+        $password = $data_excel->val($i, 10);
+        $gambar = "default.jpg";
+        $date_created = date("Y-m-d");
+        $is_active = 1;
+
+        if ($nis != "" && $nisn != "" && $nama_siswa != "" && $id_rombel != "") {
+            // input data ke database (table barang)
+            mysqli_query($conn, "INSERT INTO siswa VALUES(NULL,'$nis','$nisn','$nama_siswa', '$id_rombel', '$jk', '$alamat', '$phone', '$username', '$password', '$gambar', '$date_created', '$is_active')");
+        }
+    }
+
+    // hapus kembali file .xls yang di upload tadi
+    unlink($_FILES['file_excel']['name']);
+
+    // alihkan halaman ke index.php
+    return mysqli_affected_rows($conn);
+}
+
 function siswa_edit($data)
 {
     global $conn;
@@ -321,6 +370,58 @@ function siswa_delete($id_siswa)
     global $conn;
 
     $siswa_delete = mysqli_query($conn, "DELETE FROM siswa WHERE id_siswa = $id_siswa");
+
+    return mysqli_affected_rows($conn);
+}
+
+// ----------------------------------------------------------------------------------------------------------
+// TAHUN AJARAN
+function tahun_ajaran_add($data)
+{
+    global $conn;
+
+    $tahun_ajaran_1 = $data["tahun_ajaran_1"];
+    $tahun_ajaran_2 = $data["tahun_ajaran_2"];
+    $tahun_ajaran = $tahun_ajaran_1 . " - " . $tahun_ajaran_2;
+
+    $query = "INSERT INTO tahun_ajaran
+				VALUES
+			(NULL, '$tahun_ajaran')
+			";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+function tahun_ajaran_edit($data)
+{
+    global $conn;
+
+    $id_tahun_ajaran = $data["id_tahun_ajaran"];
+    $tahun_ajaran_1 = $data["tahun_ajaran_1"];
+    $tahun_ajaran_2 = $data["tahun_ajaran_2"];
+    $tahun_ajaran = $tahun_ajaran_1 . " - " . $tahun_ajaran_2;
+
+    $query = "UPDATE tahun_ajaran SET
+			tahun_ajaran = '$tahun_ajaran'
+
+            WHERE id_tahun_ajaran = $id_tahun_ajaran
+			";
+
+    mysqli_query(
+        $conn,
+        $query
+    );
+
+    return mysqli_affected_rows($conn);
+}
+
+function tahun_ajaran_delete($id_tahun_ajaran)
+{
+    global $conn;
+
+    $tahun_ajaran_delete = mysqli_query($conn, "DELETE FROM tahun_ajaran WHERE id_tahun_ajaran = $id_tahun_ajaran");
 
     return mysqli_affected_rows($conn);
 }

@@ -22,6 +22,13 @@ include "templates/auth_header.php";
                     <h6>-- LOGIN ADMIN --</h6>
                 </div>
                 <div class="card-body">
+
+                    <?php if (isset($_GET["pesan"])): ?>
+                        <p class="alert alert-danger my-4" style="font-style: italic; color: red; text-align: center;">
+                            <?= $_GET["pesan"]; ?>
+                        </p>
+                    <?php endif; ?>
+
                     <form class="form-horizontal form-material" action="cek_admin.php" method="POST">
                         <div class="form-group mb-4">
                             <label for="example-email" class="col-md-12 p-0">Username</label>

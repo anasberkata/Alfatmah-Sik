@@ -48,6 +48,7 @@ $rombel = query(
                         <thead>
                             <tr>
                                 <th class="border-top-0">No.</th>
+                                <th class="border-top-0">ID Rombel</th>
                                 <th class="border-top-0">Nama Rombel</th>
                                 <th class="border-top-0">Wali Kelas</th>
                                 <th class="border-top-0">Aksi</th>
@@ -59,6 +60,9 @@ $rombel = query(
                                 <tr>
                                     <td>
                                         <?= $i; ?>
+                                    </td>
+                                    <td class="txt-oflo">
+                                        <?= $r["id_rombel"]; ?>
                                     </td>
                                     <td class="txt-oflo">
                                         <?= $r["rombel"]; ?>
