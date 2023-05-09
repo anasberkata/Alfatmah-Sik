@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 09, 2023 at 09:56 AM
+-- Generation Time: May 09, 2023 at 07:39 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -109,8 +109,7 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`id_pembayaran`, `id_siswa`, `id_jenis_pembayaran`, `bbp_bulan`, `bbp_tahun`, `nominal_pembayaran`, `tanggal_pembayaran`, `bukti`, `status`) VALUES
-(1, 7, 1, 5, 2023, 500000, '2023-05-09', 'default.jpg', 1),
-(2, 6, 2, 5, 2023, 900000, '2023-05-09', 'default.jpg', 2);
+(1, 7, 1, 5, 2023, 400000, '2023-05-09', 'default.jpg', 1);
 
 -- --------------------------------------------------------
 

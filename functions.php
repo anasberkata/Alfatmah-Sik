@@ -546,14 +546,14 @@ function pembayaran_bpp_add($data)
     $id_jenis_pembayaran = $data["id_jenis_pembayaran"];
     $bbp_bulan = date("n");
     $bbp_tahun = date("Y");
-    $nominal = $data["nominal"];
+    $nominal_pembayaran = $data["nominal_pembayaran"];
     $tanggal_pembayaran = $data["tanggal_pembayaran"];
     $bukti = "default.jpg";
     $status = 1;
 
     $query = "INSERT INTO pembayaran
 				VALUES
-			(NULL, '$id_siswa', '$id_jenis_pembayaran', '$bbp_bulan', '$bbp_tahun', '$nominal', '$tanggal_pembayaran', '$bukti', '$status')
+			(NULL, '$id_siswa', '$id_jenis_pembayaran', '$bbp_bulan', '$bbp_tahun', '$nominal_pembayaran', '$tanggal_pembayaran', '$bukti', '$status')
 			";
 
     mysqli_query($conn, $query);
@@ -569,14 +569,14 @@ function pembayaran_bbp_add($data)
     $id_jenis_pembayaran = $data["id_jenis_pembayaran"];
     $bbp_bulan = $data["bbp_bulan"];
     $bbp_tahun = $data["bbp_tahun"];
-    $nominal = $data["nominal"];
+    $nominal_pembayaran = $data["nominal_pembayaran"];
     $tanggal_pembayaran = $data["tanggal_pembayaran"];
     $bukti = "default.jpg";
     $status = 1;
 
     $query = "INSERT INTO pembayaran
 				VALUES
-			(NULL, '$id_siswa', '$id_jenis_pembayaran', '$bbp_bulan', '$bbp_tahun', '$nominal', '$tanggal_pembayaran', '$bukti', '$status')
+			(NULL, '$id_siswa', '$id_jenis_pembayaran', '$bbp_bulan', '$bbp_tahun', '$nominal_pembayaran', '$tanggal_pembayaran', '$bukti', '$status')
 			";
 
     mysqli_query($conn, $query);
@@ -584,28 +584,27 @@ function pembayaran_bbp_add($data)
     return mysqli_affected_rows($conn);
 }
 
-
-
-
 function pembayaran_edit($data)
 {
+
     global $conn;
 
     $id_pembayaran = $data["id_pembayaran"];
     $id_siswa = $data["id_siswa"];
     $id_jenis_pembayaran = $data["id_jenis_pembayaran"];
-    $nominal = $data["nominal"];
+    $bbp_bulan = $data["bbp_bulan"];
+    $bbp_tahun = $data["bbp_tahun"];
+    $nominal_pembayaran = $data["nominal_pembayaran"];
     $tanggal_pembayaran = $data["tanggal_pembayaran"];
-    $bukti = $data["bukti"];
-    $status = $data["status"];
 
     $query = "UPDATE pembayaran SET
 			id_siswa = '$id_siswa',
 			id_jenis_pembayaran = '$id_jenis_pembayaran',
-			nominal = '$nominal',
-			tanggal_pembayaran = '$tanggal_pembayaran',
-			bukti = '$bukti',
-			status = '$status'
+			bbp_bulan = '$bbp_bulan',
+			bbp_tahun = '$bbp_tahun',
+			id_jenis_pembayaran = '$id_jenis_pembayaran',
+			nominal_pembayaran = '$nominal_pembayaran',
+			tanggal_pembayaran = '$tanggal_pembayaran'
 
             WHERE id_pembayaran = $id_pembayaran
 			";

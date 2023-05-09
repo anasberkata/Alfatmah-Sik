@@ -84,8 +84,14 @@ $pembayaran = query(
                                         <?= date("d F Y", strtotime($p["tanggal_pembayaran"])); ?>
                                     </td>
                                     <td class="txt-oflo text-center">
-                                        <a href="../assets/img/bukti/<?= $p["bukti"]; ?>" target="_blank"><span
-                                                class="badge bg-info">Buka</span></a>
+
+                                        <?php if ($p["bukti"] == "default.jpg"): ?>
+                                            <span class="badge bg-success">Pembayaran Tunai</span>
+                                        <?php else: ?>
+                                            <a href="../assets/img/bukti/<?= $p["bukti"]; ?>" target="_blank"><span
+                                                    class="badge bg-info">Buka</span></a>
+                                        <?php endif; ?>
+
 
                                     </td>
                                     <td class="txt-oflo">
