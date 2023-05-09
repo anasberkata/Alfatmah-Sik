@@ -1,3 +1,9 @@
+<?php
+$notif_pembayaran = query(
+    "SELECT * FROM pembayaran WHERE status = 2"
+);
+$total_notif = count($notif_pembayaran);
+?>
 <aside class="left-sidebar" data-sidebarbg="skin6">
     <div class="scroll-sidebar">
         <nav class="sidebar-nav">
@@ -71,7 +77,9 @@
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_pembayaran/riwayat.php"
                         aria-expanded="false">
                         <i class="fas fa-chart-pie text-warning" aria-hidden="true"></i>
-                        <span class="hide-menu">Riwayat Pembayaran</span>
+                        <span class="hide-menu">Riwayat Pembayaran <span class="badge bg-danger">
+                                <?= $total_notif; ?>
+                            </span></span>
                     </a>
                 </li>
 

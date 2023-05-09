@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 08, 2023 at 10:12 PM
+-- Generation Time: May 09, 2023 at 09:56 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -96,13 +96,21 @@ CREATE TABLE `pembayaran` (
   `id_pembayaran` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `id_jenis_pembayaran` int(11) NOT NULL,
-  `bbp_bulan` varchar(50) NOT NULL,
-  `bpp_tahun` varchar(50) NOT NULL,
-  `nominal` int(11) NOT NULL,
+  `bbp_bulan` int(11) NOT NULL,
+  `bbp_tahun` int(11) NOT NULL,
+  `nominal_pembayaran` int(11) NOT NULL,
   `tanggal_pembayaran` date NOT NULL,
   `bukti` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pembayaran`
+--
+
+INSERT INTO `pembayaran` (`id_pembayaran`, `id_siswa`, `id_jenis_pembayaran`, `bbp_bulan`, `bbp_tahun`, `nominal_pembayaran`, `tanggal_pembayaran`, `bukti`, `status`) VALUES
+(1, 7, 1, 5, 2023, 500000, '2023-05-09', 'default.jpg', 1),
+(2, 6, 2, 5, 2023, 900000, '2023-05-09', 'default.jpg', 2);
 
 -- --------------------------------------------------------
 
@@ -301,7 +309,7 @@ ALTER TABLE `jenis_pembayaran`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `rombel`

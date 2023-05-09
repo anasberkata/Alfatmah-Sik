@@ -43,7 +43,7 @@ $guru = query(
                     </div> -->
                 </div>
                 <div class="table-responsive">
-                    <table class="table no-wrap">
+                    <table class="table no-wrap" id="data-table">
                         <thead>
                             <tr>
                                 <th class="border-top-0">No.</th>

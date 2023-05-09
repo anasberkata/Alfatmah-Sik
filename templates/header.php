@@ -13,6 +13,8 @@ $user = query(
     WHERE id_user = $id"
 )[0];
 
+$bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
 ini_set('display_errors', 1); //Atauerror_reporting(E_ALL && ~E_NOTICE);
 ?>
 
@@ -51,12 +53,12 @@ ini_set('display_errors', 1); //Atauerror_reporting(E_ALL && ~E_NOTICE);
 </head>
 
 <body>
-    <div class="preloader">
+    <!-- <div class="preloader">
         <div class="lds-ripple">
             <div class="lds-pos"></div>
             <div class="lds-pos"></div>
         </div>
-    </div>
+    </div> -->
 
     <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
