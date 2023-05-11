@@ -2,12 +2,34 @@
 session_start();
 include "../templates/header.php";
 
-$pembayaran = query(
-    "SELECT * FROM pembayaran
-    INNER JOIN siswa ON siswa.id_siswa = pembayaran.id_siswa
-    INNER JOIN jenis_pembayaran ON jenis_pembayaran.id_jenis_pembayaran = pembayaran.id_jenis_pembayaran
-    ORDER BY pembayaran.id_pembayaran DESC"
-);
+if (!isset($_POST["search"])) {
+    $pembayaran = query(
+        "SELECT * FROM pembayaran
+        INNER JOIN siswa ON siswa.id_siswa = pembayaran.id_siswa
+        INNER JOIN jenis_pembayaran ON jenis_pembayaran.id_jenis_pembayaran = pembayaran.id_jenis_pembayaran
+        ORDER BY pembayaran.id_pembayaran DESC"
+    );
+
+    $pembayaran_amount = query(
+        "SELECT SUM(nominal_pembayaran) AS amount FROM pembayaran"
+    )[0];
+} else {
+
+    $tanggal_awal = $_POST["tanggal_awal"];
+    $tanggal_akhir = $_POST["tanggal_akhir"];
+
+    $pembayaran = query(
+        "SELECT * FROM pembayaran
+        INNER JOIN siswa ON siswa.id_siswa = pembayaran.id_siswa
+        INNER JOIN jenis_pembayaran ON jenis_pembayaran.id_jenis_pembayaran = pembayaran.id_jenis_pembayaran
+        WHERE tanggal_pembayaran BETWEEN '$tanggal_awal' AND '$tanggal_akhir'
+        ORDER BY pembayaran.id_pembayaran DESC"
+    );
+
+    $pembayaran_amount = query(
+        "SELECT SUM(nominal_pembayaran) AS amount FROM pembayaran  WHERE tanggal_pembayaran BETWEEN '$tanggal_awal' AND '$tanggal_akhir'"
+    )[0];
+}
 ?>
 
 <div class="page-breadcrumb bg-white">
@@ -23,7 +45,6 @@ $pembayaran = query(
                                 class="fas fa-plus"></i> Tambah</a>
                     </li>
                 </ol>
-
             </div>
         </div>
     </div>
@@ -34,17 +55,49 @@ $pembayaran = query(
         <div class="col-md-12 col-lg-12 col-sm-12">
             <div class="white-box">
                 <div class="d-md-flex mb-3">
-                    <h3 class="box-title mb-0">Data Rimayat Pembayaran</h3>
-                    <!-- <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
-                        <select class="form-select shadow-none row border-top">
-                            <option>March 2021</option>
-                            <option>April 2021</option>
-                            <option>May 2021</option>
-                            <option>June 2021</option>
-                            <option>July 2021</option>
-                        </select>
-                    </div> -->
+                    <h3 class="col-12 col-md-6 box-title mb-0">Data Rimayat Pembayaran</h3>
+
+                    <form class="col-12 col-md-6 app-search me-3" method="post" action="">
+                        <div class="row">
+                            <div class="col-4 border-bottom">
+                                <input type="date" class="form-control p-0 border-0" name="tanggal_awal" />
+                            </div>
+                            <div class="col-1 border-bottom pt-2">
+                                s/d
+                            </div>
+                            <div class="col-4 border-bottom">
+                                <input type="date" class="form-control p-0 border-0" name="tanggal_akhir" />
+                            </div>
+                            <div class="col-3">
+                                <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+                                    <button type="submit" name="search" class="btn btn-info">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                    <?php if (!isset($_POST["tanggal_awal"])): ?>
+                                        <a href="riwayat_print.php?tanggal_awal=0&tanggal_akhir=0" name="print"
+                                            class="btn btn-warning" target="_blank"><i class="fas fa-print"></i></a>
+                                    <?php else: ?>
+                                        <a href="riwayat_print.php?tanggal_awal=<?= $_POST["tanggal_awal"]; ?>&tanggal_akhir=<?= $_POST["tanggal_akhir"]; ?>"
+                                            name="print" class="btn btn-warning" target="_blank"><i
+                                                class="fas fa-print"></i></a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
+
+                <?php if (isset($_POST["tanggal_awal"])): ?>
+                    <div class="my-3">
+                        <p>Riwayat Pembayaran pada tanggal :
+                            <strong>
+                                <?= date("d F Y", strtotime($_POST["tanggal_awal"])); ?> s/d
+                                <?= date("d F Y", strtotime($_POST["tanggal_akhir"])); ?>
+                            </strong>
+                        </p>
+                    </div>
+                <?php endif; ?>
+
                 <div class="table-responsive">
                     <table class="table no-wrap" id="data-table">
                         <thead>
@@ -92,7 +145,6 @@ $pembayaran = query(
                                                     class="badge bg-info">Buka</span></a>
                                         <?php endif; ?>
 
-
                                     </td>
                                     <td class="txt-oflo">
                                         <a href="riwayat_status.php?id_pembayaran=<?= $p["id_pembayaran"] ?>">
@@ -116,6 +168,14 @@ $pembayaran = query(
                                 </tr>
                                 <?php $i++; ?>
                             <?php endforeach; ?>
+
+                            <tr>
+                                <td colspan="4" class="text-center">TOTAL</td>
+                                <td>
+                                    Rp.
+                                    <?= number_format($pembayaran_amount["amount"], 0, ',', '.'); ?>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

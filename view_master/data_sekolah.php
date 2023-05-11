@@ -2,22 +2,22 @@
 session_start();
 include "../templates/header.php";
 
-$k = query(
-    "SELECT * FROM kwitansi"
+$ds = query(
+    "SELECT * FROM data_sekolah"
 )[0];
 
 $bendahara = query("SELECT * FROM users WHERE role_id = 2");
 
-if (isset($_POST["edit_kwitansi"])) {
-    if (kwitansi_edit($_POST) > 0) {
+if (isset($_POST["edit_data_sekolah"])) {
+    if (data_sekolah_edit($_POST) > 0) {
         echo "<script>
-            alert('Kwitansi berhasil diubah!');
-            document.location.href = 'kwitansi.php';
+            alert('Data sekolah berhasil diubah!');
+            document.location.href = 'data_sekolah.php';
           </script>";
     } else {
         echo "<script>
-            alert('Kwitansi gagal diubah!');
-            document.location.href = 'kwitansi.php';
+            alert('Data sekolah gagal diubah!');
+            document.location.href = 'data_sekolah.php';
           </script>";
     }
 }
@@ -26,7 +26,7 @@ if (isset($_POST["edit_kwitansi"])) {
 <div class="page-breadcrumb bg-white">
     <div class="row align-items-center">
         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-            <h4 class="page-title">Kwitansi</h4>
+            <h4 class="page-title">Data Sekolah</h4>
         </div>
         <!-- <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
             <div class="d-md-flex">
@@ -47,7 +47,7 @@ if (isset($_POST["edit_kwitansi"])) {
         <div class="col-md-12 col-lg-12 col-sm-12">
             <div class="white-box">
                 <div class="d-md-flex mb-3">
-                    <h3 class="box-title mb-0">Pengaturan Kwitansi</h3>
+                    <h3 class="box-title mb-0">Pengaturan Data Sekolah</h3>
                     <!-- <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
                         <select class="form-select shadow-none row border-top">
                             <option>March 2021</option>
@@ -64,24 +64,24 @@ if (isset($_POST["edit_kwitansi"])) {
                         <div class="col-12 col-md-6">
                             <div class="form-group mb-4">
                                 <label class="col-md-12 p-0">Logo</label>
-                                <img src="../assets/img/logo_kwitansi/<?= $k["logo"]; ?>"
+                                <img src="../assets/img/logo_data_sekolah/<?= $ds["logo"]; ?>"
                                     class="img-thumbnail w-50 mb-3">
                                 <div class="col-md-12 border-bottom p-0">
-                                    <input type="hidden" name="logo_lama" value="<?= $k["logo"]; ?>" />
+                                    <input type="hidden" name="logo_lama" value="<?= $ds["logo"]; ?>" />
                                     <input type="file" class="form-control p-0 border-0" name="logo" />
                                 </div>
                             </div>
                             <div class="form-group mb-4">
                                 <label class="col-md-12 p-0">Nama Yayasan</label>
                                 <div class="col-md-12 border-bottom p-0">
-                                    <input type="text" class="form-control p-0 border-0" value="<?= $k["yayasan"]; ?>"
+                                    <input type="text" class="form-control p-0 border-0" value="<?= $ds["yayasan"]; ?>"
                                         name="yayasan" />
                                 </div>
                             </div>
                             <div class="form-group mb-4">
                                 <label for="example-email" class="col-md-12 p-0">Nama Sekolah</label>
                                 <div class="col-md-12 border-bottom p-0">
-                                    <input type="text" class="form-control p-0 border-0" value="<?= $k["sekolah"]; ?>"
+                                    <input type="text" class="form-control p-0 border-0" value="<?= $ds["sekolah"]; ?>"
                                         name="sekolah" />
                                 </div>
                             </div>
@@ -101,16 +101,16 @@ if (isset($_POST["edit_kwitansi"])) {
                             </div>
                             <div class="form-group mb-4">
                                 <label class="col-md-12 p-0">Logo</label>
-                                <img src="../assets/img/ttd/<?= $k["ttd"]; ?>" class="img-thumbnail w-50 mb-3">
+                                <img src="../assets/img/ttd/<?= $ds["ttd"]; ?>" class="img-thumbnail w-50 mb-3">
                                 <div class="col-md-12 border-bottom p-0">
-                                    <input type="hidden" name="ttd_lama" value="<?= $k["ttd"]; ?>" />
+                                    <input type="hidden" name="ttd_lama" value="<?= $ds["ttd"]; ?>" />
                                     <input type="file" class="form-control p-0 border-0" name="ttd" />
                                 </div>
                             </div>
 
                             <div class="form-group mb-4">
                                 <div class="col-sm-12">
-                                    <button class="btn btn-success" type="submit" name="edit_kwitansi">Ubah</button>
+                                    <button class="btn btn-success" type="submit" name="edit_data_sekolah">Ubah</button>
                                 </div>
                             </div>
                         </div>

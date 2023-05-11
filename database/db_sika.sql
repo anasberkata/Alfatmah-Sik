@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 09, 2023 at 07:39 PM
+-- Generation Time: May 11, 2023 at 07:07 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_sika`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_sekolah`
+--
+
+CREATE TABLE `data_sekolah` (
+  `logo` varchar(255) NOT NULL,
+  `yayasan` varchar(255) NOT NULL,
+  `sekolah` varchar(255) NOT NULL,
+  `id_bendahara` int(11) NOT NULL,
+  `ttd` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `data_sekolah`
+--
+
+INSERT INTO `data_sekolah` (`logo`, `yayasan`, `sekolah`, `id_bendahara`, `ttd`) VALUES
+('644bd8df2351a.png', 'YAYASAN PONDOK PASANTREN AL-FATMAH', 'SMK AL-FATMAH CIANJUR', 3, '644bd8eded95b.png');
 
 -- --------------------------------------------------------
 
@@ -68,27 +89,6 @@ INSERT INTO `jenis_pembayaran` (`id_jenis_pembayaran`, `jenis_pembayaran`, `nomi
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kwitansi`
---
-
-CREATE TABLE `kwitansi` (
-  `logo` varchar(255) NOT NULL,
-  `yayasan` varchar(255) NOT NULL,
-  `sekolah` varchar(255) NOT NULL,
-  `id_bendahara` int(11) NOT NULL,
-  `ttd` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `kwitansi`
---
-
-INSERT INTO `kwitansi` (`logo`, `yayasan`, `sekolah`, `id_bendahara`, `ttd`) VALUES
-('644bd8df2351a.png', 'YAYASAN PONDOK PASANTREN AL-FATMAH', 'SMK AL-FATMAH CIANJUR', 3, '644bd8eded95b.png');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `pembayaran`
 --
 
@@ -109,7 +109,9 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`id_pembayaran`, `id_siswa`, `id_jenis_pembayaran`, `bbp_bulan`, `bbp_tahun`, `nominal_pembayaran`, `tanggal_pembayaran`, `bukti`, `status`) VALUES
-(1, 7, 1, 5, 2023, 400000, '2023-05-09', 'default.jpg', 1);
+(1, 7, 1, 5, 2023, 400000, '2023-05-01', 'default.jpg', 1),
+(3, 8, 1, 5, 2023, 250000, '2023-05-10', 'default.jpg', 1),
+(4, 11, 2, 5, 2023, 90000, '2023-05-11', 'default.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -308,7 +310,7 @@ ALTER TABLE `jenis_pembayaran`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `rombel`

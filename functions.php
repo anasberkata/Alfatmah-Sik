@@ -485,7 +485,7 @@ function jenis_pembayaran_delete($id_jenis_pembayaran)
 
 // ----------------------------------------------------------------------------------------------------------
 // KWITANSI
-function kwitansi_edit($data)
+function data_sekolah_edit($data)
 {
     global $conn;
 
@@ -508,7 +508,7 @@ function kwitansi_edit($data)
         $ttd = upload_ttd();
     }
 
-    $query = "UPDATE kwitansi SET
+    $query = "UPDATE data_sekolah SET
 			logo = '$logo',
 			yayasan = '$yayasan',
 			sekolah = '$sekolah',
@@ -708,7 +708,7 @@ function upload_logo()
     $namaFileBaru .= '.';
     $namaFileBaru .= $ekstensiFile;
 
-    move_uploaded_file($tmpName, "../assets/img/logo_kwitansi/" . $namaFileBaru);
+    move_uploaded_file($tmpName, "../assets/img/" . $namaFileBaru);
 
     return $namaFileBaru;
 }
