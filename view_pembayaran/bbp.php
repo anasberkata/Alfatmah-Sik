@@ -12,7 +12,7 @@
                     </div> -->
     </div>
 
-    <form class="form-horizontal form-material" action="" method="POST">
+    <form class="form-horizontal form-material" action="" method="POST" enctype="multipart/form-data">
         <div class="row">
             <div class="col-12 col-lg-6">
 
@@ -35,10 +35,8 @@
                     <label class="col-sm-12">Jenis Pembayaran</label>
 
                     <div class="col-sm-12 border-bottom">
-                        <select class="form-select shadow-none p-0 border-0 form-control-line"
-                            name="id_jenis_pembayaran">
-                            <option value="2">BBP</option>
-                        </select>
+                        <input type="text" class="form-control p-0 border-0" value="BBP" readonly />
+                        <input type="hidden" class="form-control p-0 border-0" value="2" name="id_jenis_pembayaran" />
                     </div>
                 </div>
             </div>
@@ -75,6 +73,12 @@
                     <label class="col-md-12 p-0">Tanggal Pembayaran</label>
                     <div class="col-md-12 border-bottom p-0">
                         <input type="date" class="form-control p-0 border-0" name="tanggal_pembayaran" />
+                    </div>
+                </div>
+                 <div class="form-group mb-4 d-none">
+                    <label class="col-md-12 p-0">Bukti Pembayaran</label>
+                    <div class="col-md-12 border-bottom p-0">
+                        <input type="file" class="form-control p-0 border-0" name="bukti_pembayaran" />
                     </div>
                 </div>
 

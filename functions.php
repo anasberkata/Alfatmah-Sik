@@ -608,6 +608,13 @@ function pembayaran_edit($data)
     $bbp_tahun = $data["bbp_tahun"];
     $nominal_pembayaran = $data["nominal_pembayaran"];
     $tanggal_pembayaran = $data["tanggal_pembayaran"];
+    $bukti_pembayaran_lama = $data["bukti_pembayaran_lama"];
+
+    if ($_FILES["bukti_pembayaran"]["error"] === 4) {
+        $bukti = $bukti_pembayaran_lama;
+    } else {
+        $bukti = upload_bukti();
+    }
 
     $query = "UPDATE pembayaran SET
 			id_siswa = '$id_siswa',
@@ -616,7 +623,8 @@ function pembayaran_edit($data)
 			bbp_tahun = '$bbp_tahun',
 			id_jenis_pembayaran = '$id_jenis_pembayaran',
 			nominal_pembayaran = '$nominal_pembayaran',
-			tanggal_pembayaran = '$tanggal_pembayaran'
+			tanggal_pembayaran = '$tanggal_pembayaran',
+			bukti = '$bukti'
 
             WHERE id_pembayaran = $id_pembayaran
 			";

@@ -7,6 +7,7 @@ require '../functions.php';
 $bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
 $id_pembayaran = $_GET["id_pembayaran"];
+$id_siswa = $_GET["id_siswa"];
 
 $data_sekolah = query(
     "SELECT * FROM data_sekolah
@@ -37,8 +38,18 @@ switch ($bulan_pembayaran) {
 
 $jenis_pembayaran = query("SELECT * FROM jenis_pembayaran");
 $total_bpp = $jenis_pembayaran[0]["nominal"];
-$total_bbp = $jenis_pembayaran[1]["nominal"];
-$total_yang_haru_dibayar = $total_bpp + ($total_bbp * 12);
+$total_bbp = $jenis_pembayaran[1]["nominal"] * 12;
+
+$sudah_bayar_bpp = query(
+    "SELECT SUM(nominal_pembayaran) AS amount FROM pembayaran WHERE id_siswa = $id_siswa AND id_jenis_pembayaran = 1 AND status = 1"
+)[0];
+$sisa_bpp = $total_bpp - $sudah_bayar_bpp["amount"];
+
+$sudah_bayar_bbp = query(
+    "SELECT SUM(nominal_pembayaran) AS amount FROM pembayaran WHERE id_siswa = $id_siswa AND id_jenis_pembayaran = 2 AND status = 1"
+)[0];
+
+$sisa_bbp = $total_bbp - $sudah_bayar_bbp["amount"];
 
 $html = '
 <body>
@@ -64,7 +75,7 @@ $html = '
 
 
 
-    <table border="0" cellpadding="10px" cellspacing="0" width="100%" style="font-size: 10px">
+    <table border="0" cellpadding="5px" cellspacing="0" width="100%" style="font-size: 10px">
         <tr style="font-style: bold; color: #fff; font-weight: bold;">
             <td style="font-weight: bold;">PEMBAYARAN</td>
             <td style="font-weight: bold; text-align: right;">JUMLAH</td>
@@ -72,7 +83,13 @@ $html = '
             <td style="font-weight: bold;" colspan="2">INFORMASI</td>
         </tr>
         <tr>
-            <td rowspan="3">' . $p["jenis_pembayaran"] . ' Bulan ' . $bulan[$bulan_pembayaran] . '</td>
+            <td rowspan="3">' . $p["jenis_pembayaran"];
+if ($p["id_jenis_pembayaran"] == 2) {
+    $html .= ' <b>Bulan ' . $bulan[$bulan_pembayaran] . '</b>';
+}
+
+$html .= '<br>' . $p["deskripsi"] .
+    '</td>
             <td rowspan="3" style="text-align: right;">: Rp. ' . number_format($p["nominal_pembayaran"], 0, ',', '.') . '</td>
             <td rowspan="4"></td>
             <td>Nama</td>
@@ -84,7 +101,14 @@ $html = '
         </tr>
         <tr>
             <td>Total Pembayaran</td>
-            <td>: Rp. ' . number_format($total_yang_haru_dibayar, 0, ',', '.') . '</td>
+            <td>: Rp. ';
+if ($p["id_jenis_pembayaran"] == 1) {
+    $html .= number_format($total_bpp, 0, ',', '.') . '</b>';
+} else {
+    $html .= number_format($total_bbp, 0, ',', '.') . '</b>';
+
+}
+$html .= '</td>
         </tr>
         <tr>
             <td style="text-align: left; font-weight: bold;">
@@ -92,11 +116,17 @@ $html = '
             </td>
             <td style="text-align: right;">: Rp. ' . number_format($pembayaran_amount["amount"], 0, ',', '.') . '</td>
             <td>Sisa Pembayaran</td>
-            <td>: ' . $p["rombel"] . '</td>
-        </tr>';
+            <td>: Rp. ';
+if ($p["id_jenis_pembayaran"] == 1) {
+    $html .= number_format($sisa_bpp, 0, ',', '.') . '</td>';
+} else {
+    $html .= number_format($sisa_bbp, 0, ',', '.') . '</td>';
 
-$html .= '<tr>
-            
+}
+
+$html .= '</tr>
+
+        <tr>    
         </tr>
     </table>
 

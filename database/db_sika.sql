@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 12, 2023 at 05:28 AM
+-- Generation Time: May 12, 2023 at 10:02 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -113,8 +113,11 @@ INSERT INTO `pembayaran` (`id_pembayaran`, `id_siswa`, `id_jenis_pembayaran`, `b
 (3, 8, 1, 5, 2023, 250000, '2023-05-10', 'default.jpg', 1),
 (4, 11, 2, 5, 2023, 90000, '2023-05-11', 'default.jpg', 1),
 (7, 11, 1, 5, 2023, 250000, '2023-05-12', '645d34d37c071.jpeg', 1),
-(8, 11, 1, 5, 2023, 150000, '2023-05-09', '645d37e0d2222.jpeg', 2),
-(10, 11, 2, 9, 2023, 30000, '2023-05-12', '645d398325744.jpeg', 2);
+(8, 11, 1, 5, 2023, 150000, '2023-05-09', '645d37e0d2222.jpeg', 1),
+(12, 10, 1, 5, 2023, 150000, '2023-05-12', 'default.jpg', 1),
+(13, 12, 2, 5, 2023, 90000, '2023-05-11', 'default.jpg', 1),
+(14, 9, 1, 5, 2023, 1000000, '2023-05-10', 'default.jpg', 1),
+(16, 11, 2, 1, 2023, 90000, '2023-05-12', '645de1ee0ad8f.jpeg', 1);
 
 -- --------------------------------------------------------
 
@@ -313,7 +316,7 @@ ALTER TABLE `jenis_pembayaran`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `rombel`

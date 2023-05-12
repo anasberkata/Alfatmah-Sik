@@ -9,7 +9,7 @@ $pembayaran = query(
         INNER JOIN siswa ON siswa.id_siswa = pembayaran.id_siswa
         INNER JOIN jenis_pembayaran ON jenis_pembayaran.id_jenis_pembayaran = pembayaran.id_jenis_pembayaran
         WHERE pembayaran.id_siswa = $id_siswa
-        ORDER BY pembayaran.id_pembayaran DESC"
+        ORDER BY tanggal_pembayaran DESC, pembayaran.id_pembayaran DESC"
 );
 
 $pembayaran_amount = query(
@@ -62,7 +62,6 @@ $pembayaran_amount = query(
                             <tr>
                                 <th class="border-top-0">No.</th>
                                 <th class="border-top-0">ID Pembayaran</th>
-                                <th class="border-top-0">Nama Siswa</th>
                                 <th class="border-top-0">Jenis Pembayaran</th>
                                 <th class="border-top-0">Nominal</th>
                                 <th class="border-top-0 text-end">Tanggal Pembayaran</th>
@@ -79,9 +78,6 @@ $pembayaran_amount = query(
                                     </td>
                                     <td class="txt-oflo">
                                         <?= date("dmy", strtotime($p["tanggal_pembayaran"])) . $p["id_pembayaran"]; ?>
-                                    </td>
-                                    <td class="txt-oflo">
-                                        <?= $p["nama_siswa"]; ?>
                                     </td>
                                     <td class="txt-oflo">
                                         <?= $p["jenis_pembayaran"]; ?>
@@ -106,7 +102,7 @@ $pembayaran_amount = query(
                                     <td class="txt-oflo">
                                         <?php if ($p["status"] == 1): ?>
                                             <span class="badge bg-success">Diterima</span>
-                                            <a href="kwitansi.php?id_pembayaran=<?= $p["id_pembayaran"] ?>"
+                                            <a href="kwitansi.php?id_pembayaran=<?= $p["id_pembayaran"] ?>&id_siswa=<?= $p["id_siswa"] ?>"
                                                 class="badge btn-info" target="_blank">Kwitansi</a>
                                         <?php else: ?>
                                             <span class="badge bg-warning">Pending</span>
@@ -117,7 +113,7 @@ $pembayaran_amount = query(
                             <?php endforeach; ?>
 
                             <tr>
-                                <td colspan="4" class="text-center">TOTAL</td>
+                                <td colspan="3" class="text-center">TOTAL</td>
                                 <td>
                                     Rp.
                                     <?= number_format($pembayaran_amount["amount"], 0, ',', '.'); ?>

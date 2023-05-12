@@ -79,7 +79,7 @@ if (isset($_POST["edit_pembayaran"])) {
                     </div> -->
                 </div>
 
-                <form class="form-horizontal form-material" action="" method="POST">
+                <form class="form-horizontal form-material" action="" method="POST" enctype="multipart/form-data">
 
                 <input type="hidden" value="<?= $p["id_pembayaran"]; ?>" name="id_pembayaran" />
 
@@ -89,29 +89,23 @@ if (isset($_POST["edit_pembayaran"])) {
                                 <label class="col-sm-12">Siswa</label>
 
                                 <div class="col-sm-12 border-bottom">
-                                    <select class="form-select shadow-none p-0 border-0 form-control-line"
-                                        name="id_siswa">
-                                        <option value="<?= $p["id_siswa"]; ?>"><?= $p["nama_siswa"]; ?> || Kelas : <?= $p["rombel"]; ?>
-                                        </option>
-                                    </select>
+                                    <input type="hidden" class="form-control p-0 border-0" name="id_siswa" value="<?= $p["id_siswa"]; ?>" />
+                                    <input type="text" class="form-control p-0 border-0" value="<?= $p["nama_siswa"]; ?> || Kelas : <?= $p["rombel"]; ?>" readonly />
                                 </div>
                             </div>
                             <div class="form-group mb-4">
                                 <label class="col-sm-12">Jenis Pembayaran</label>
 
                                 <div class="col-sm-12 border-bottom">
-                                    <select class="form-select shadow-none p-0 border-0 form-control-line"
-                                        name="id_jenis_pembayaran">
-                                        <option value="<?= $p["id_jenis_pembayaran"]; ?>"><?= $p["jenis_pembayaran"]; ?>
-                                        </option>
-                                    </select>
+                                    <input type="hidden" class="form-control p-0 border-0" name="id_jenis_pembayaran" value="<?= $p["id_jenis_pembayaran"]; ?>" />
+                                    <input type="text" class="form-control p-0 border-0" value="<?= $p["jenis_pembayaran"]; ?>"
+                                        readonly />
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-12 col-lg-6">
                             
-
                         <?php if($p["id_jenis_pembayaran"] == 1) : ?>
                             <div class="form-group mb-4 d-none">
                                 <label class="col-sm-12">BBP Bulan</label>
@@ -158,9 +152,6 @@ if (isset($_POST["edit_pembayaran"])) {
                             </div>
                         <?php endif; ?>
 
-
-
-
                             <div class="form-group mb-4">
                                 <label class="col-md-12 p-0">Nominal (Rp.)</label>
                                 <div class="col-md-12 border-bottom p-0">
@@ -171,6 +162,14 @@ if (isset($_POST["edit_pembayaran"])) {
                                 <label class="col-md-12 p-0">Tanggal Pembayaran</label>
                                 <div class="col-md-12 border-bottom p-0">
                                     <input type="date" class="form-control p-0 border-0" name="tanggal_pembayaran" value="<?= $p["tanggal_pembayaran"]; ?>" />
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-4 d-none">
+                                <label class="col-md-12 p-0">Bukti Pembayaran</label>
+                                <div class="col-md-12 border-bottom p-0">
+                                    <input type="text" class="form-control p-0 border-0" name="bukti_pembayaran_lama" value="<?= $p["bukti"]; ?>" />
+                                    <input type="file" class="form-control p-0 border-0" name="bukti_pembayaran" />
                                 </div>
                             </div>
 
