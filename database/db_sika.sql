@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 11, 2023 at 07:07 AM
+-- Generation Time: May 12, 2023 at 05:28 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -111,7 +111,10 @@ CREATE TABLE `pembayaran` (
 INSERT INTO `pembayaran` (`id_pembayaran`, `id_siswa`, `id_jenis_pembayaran`, `bbp_bulan`, `bbp_tahun`, `nominal_pembayaran`, `tanggal_pembayaran`, `bukti`, `status`) VALUES
 (1, 7, 1, 5, 2023, 400000, '2023-05-01', 'default.jpg', 1),
 (3, 8, 1, 5, 2023, 250000, '2023-05-10', 'default.jpg', 1),
-(4, 11, 2, 5, 2023, 90000, '2023-05-11', 'default.jpg', 1);
+(4, 11, 2, 5, 2023, 90000, '2023-05-11', 'default.jpg', 1),
+(7, 11, 1, 5, 2023, 250000, '2023-05-12', '645d34d37c071.jpeg', 1),
+(8, 11, 1, 5, 2023, 150000, '2023-05-09', '645d37e0d2222.jpeg', 2),
+(10, 11, 2, 9, 2023, 30000, '2023-05-12', '645d398325744.jpeg', 2);
 
 -- --------------------------------------------------------
 
@@ -165,10 +168,10 @@ INSERT INTO `siswa` (`id_siswa`, `nis`, `nisn`, `nama_siswa`, `id_rombel`, `jk`,
 (5, 123456, 123456, 'Udin Petot', 1, 'Laki-Laki', 'Perumahan Permata Indehoy', '80000000', 'siswa01', 'siswa01', 'default.jpg', 1, '2023-05-08', 1),
 (6, 654321, 654321, 'Petot Marwati', 1, 'Perempuan', 'Kampung Monyet Cacat', '8176175283', 'siswa02', 'siswa02', 'default.jpg', 1, '2023-05-08', 1),
 (7, 203762265, 203762265, 'Itih Suritih', 3, 'Perempuan', 'Cicicuit', '92897986374', 'siswa03', 'siswa03', 'default.jpg', 1, '2023-05-08', 1),
-(8, 123, 123, 'qwer', 4, 'Perempuan', 'qw', '123', 'qwer', 'qwr', 'default.jpg', 1, '2023-05-08', 1),
+(8, 123, 123, 'siswa1', 4, 'Perempuan', 'Cianjur', '123', 'siswa1', 'siswa1', 'default.jpg', 1, '2023-05-08', 1),
 (9, 234, 324, 'dfghdfhdfg', 3, 'Laki-Laki', 'dfghfgh', '234523', 'dfghdfgh', 'dfghdfgh', 'default.jpg', 1, '2023-05-08', 1),
 (10, 123123123, 123123123, 'zxczxc', 4, 'Laki-Laki', 'zxc', '123', 'zxczxc', 'zxczxc', 'default.jpg', 1, '2023-05-08', 1),
-(11, 51911165, 51911165, 'Eka Anas Jatnika', 1, 'Laki-Laki', 'Cianjur', '80000000', 'siswa01', 'siswa01', 'default.jpg', 1, '2023-05-08', 1),
+(11, 51911165, 51911165, 'Eka Anas Jatnika', 1, 'Laki-Laki', 'Karangtengah Cianjur', '80000000', 'anas', 'anas', 'default.jpg', 1, '2023-05-08', 1),
 (12, 51911166, 51911166, 'Anas Jatnika', 3, 'Laki-Laki', 'Bandung', '80000000', 'siswa02', 'siswa02', 'default.jpg', 2, '2023-05-08', 1);
 
 -- --------------------------------------------------------
@@ -310,7 +313,7 @@ ALTER TABLE `jenis_pembayaran`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `rombel`

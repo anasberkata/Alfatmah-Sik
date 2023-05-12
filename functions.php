@@ -548,8 +548,14 @@ function pembayaran_bpp_add($data)
     $bbp_tahun = date("Y");
     $nominal_pembayaran = $data["nominal_pembayaran"];
     $tanggal_pembayaran = $data["tanggal_pembayaran"];
-    $bukti = "default.jpg";
-    $status = 1;
+
+    if ($_FILES["bukti_pembayaran"]["error"] === 4) {
+        $bukti = "default.jpg";
+    } else {
+        $bukti = upload_bukti();
+    }
+
+    $status = $data["status"];
 
     $query = "INSERT INTO pembayaran
 				VALUES
@@ -571,8 +577,14 @@ function pembayaran_bbp_add($data)
     $bbp_tahun = $data["bbp_tahun"];
     $nominal_pembayaran = $data["nominal_pembayaran"];
     $tanggal_pembayaran = $data["tanggal_pembayaran"];
-    $bukti = "default.jpg";
-    $status = 1;
+
+    if ($_FILES["bukti_pembayaran"]["error"] === 4) {
+        $bukti = "default.jpg";
+    } else {
+        $bukti = upload_bukti();
+    }
+
+    $status = $data["status"];
 
     $query = "INSERT INTO pembayaran
 				VALUES
@@ -647,7 +659,51 @@ function pembayaran_delete($id_pembayaran)
     return mysqli_affected_rows($conn);
 }
 
+// UPLOAD BUKTI
+function upload_bukti()
+{
+    $namaFile = $_FILES["bukti_pembayaran"]["name"];
+    $ukuranFile = $_FILES["bukti_pembayaran"]["size"];
+    $error = $_FILES["bukti_pembayaran"]["error"];
+    $tmpName = $_FILES["bukti_pembayaran"]["tmp_name"];
 
+    if ($error === 4) {
+        echo "<script>
+                alert('Foto bukti wajib diupload!');
+            </script>";
+
+        return false;
+    }
+
+    $ekstensiFileValid = ["jpg", "jpeg"];
+    $ekstensiFile = explode(".", $namaFile);
+    $ekstensiFile = strtolower(end($ekstensiFile));
+
+    if (!in_array($ekstensiFile, $ekstensiFileValid)) {
+        echo "<script>
+                alert('Gambar yang diupload bukan .jpg!');
+            </script>";
+
+        return false;
+    }
+
+    // max 10mb
+    if ($ukuranFile > 20000000) {
+        echo "<script>
+                alert('Ukuran gambar terlalu besar, Maksimal 20mb!');
+            </script>";
+
+        return false;
+    }
+
+    $namaFileBaru = uniqid();
+    $namaFileBaru .= '.';
+    $namaFileBaru .= $ekstensiFile;
+
+    move_uploaded_file($tmpName, "../assets/img/bukti/" . $namaFileBaru);
+
+    return $namaFileBaru;
+}
 
 
 

@@ -29,8 +29,8 @@ if ($cek > 0) {
 
         header("location: view_admin/dashboard.php");
     } else {
-        header("location: index.php?pesan=Username / Password salah");
+        header("location: admin.php?pesan=Username / Password salah");
     }
 } else {
-    header("location: index.php?pesan=Username / Password salah");
+    header("location: admin.php?pesan=Username / Password salah");
 }

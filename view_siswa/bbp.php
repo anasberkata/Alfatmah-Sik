@@ -12,59 +12,54 @@
                     </div> -->
     </div>
 
-    <form class="form-horizontal form-material" action="" method="POST">
+    <form class="form-horizontal form-material" action="" method="POST" enctype="multipart/form-data">
         <div class="row">
             <div class="col-12 col-lg-6">
 
-            <input type="hidden" value="1" name="status" />
-            
+                <input type="hidden" value="2" name="status" />
+
                 <div class="form-group mb-4">
-                    <label class="col-sm-12">Siswa</label>
+                    <label class="col-sm-12">Nama</label>
 
                     <div class="col-sm-12 border-bottom">
-                        <select class="form-select shadow-none p-0 border-0 form-control-line" name="id_siswa">
-                            <option>Pilih Siswa</option>
-                            <?php foreach ($siswa as $s): ?>
-                                <option value="<?= $s["id_siswa"]; ?>"><?= $s["nama_siswa"]; ?> || Kelas : <?= $s["rombel"]; ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+                        <input type="hidden" name="id_siswa" value="<?= $user["id_siswa"]; ?>" />
+                        <input type="text" class="form-control p-0 border-0"
+                            value="<?= $user["nama_siswa"]; ?> || Kelas : <?= $user["rombel"]; ?>" readonly />
                     </div>
                 </div>
                 <div class="form-group mb-4">
                     <label class="col-sm-12">Jenis Pembayaran</label>
 
                     <div class="col-sm-12 border-bottom">
-                        <select class="form-select shadow-none p-0 border-0 form-control-line"
-                            name="id_jenis_pembayaran">
-                            <option value="2">BBP</option>
-                        </select>
+                        <input type="hidden" name="id_jenis_pembayaran" value="2" />
+                        <input type="text" class="form-control p-0 border-0" value="BBP" readonly />
                     </div>
                 </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
                 <div class="form-group mb-4">
                     <label class="col-sm-12">BBP Bulan</label>
 
                     <div class="row">
                         <div class="col-sm-6 border-bottom">
-                            <select class="form-select shadow-none p-0 border-0 form-control-line"
-                                name="bbp_bulan">
+                            <select class="form-select shadow-none p-0 border-0 form-control-line" name="bbp_bulan">
                                 <option>Pilih Bulan</option>
                                 <?php $i = 1; ?>
-                                <?php foreach($bulan as $b) :?>
+                                <?php foreach ($bulan as $b): ?>
                                     <option value="<?= $i; ?>"><?= $b; ?></option>
                                     <?php $i++; ?>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="col-sm-6 border-bottom p-0">
-                            <input type="number" min="1900" max="3000" step="1" value="<?= date("Y"); ?>" class="form-control p-0 border-0" name="bbp_tahun" />
+                            <input type="number" min="1900" max="3000" step="1" value="<?= date("Y"); ?>"
+                                class="form-control p-0 border-0" name="bbp_tahun" />
                         </div>
                     </div>
-                    
+
                 </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+
                 <div class="form-group mb-4">
                     <label class="col-md-12 p-0">Nominal (Rp.)</label>
                     <div class="col-md-12 border-bottom p-0">
@@ -75,6 +70,12 @@
                     <label class="col-md-12 p-0">Tanggal Pembayaran</label>
                     <div class="col-md-12 border-bottom p-0">
                         <input type="date" class="form-control p-0 border-0" name="tanggal_pembayaran" />
+                    </div>
+                </div>
+                <div class="form-group mb-4">
+                    <label class="col-md-12 p-0">Bukti Pembayaran</label>
+                    <div class="col-md-12 border-bottom p-0">
+                        <input type="file" class="form-control p-0 border-0" name="bukti_pembayaran" />
                     </div>
                 </div>
 

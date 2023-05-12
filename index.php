@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION['login'])) {
-    header("Location: view_admin/dashboard_siswa.php");
+    header("Location: view_siswa/dashboard.php");
     exit;
 }
 
@@ -48,7 +48,7 @@ include "templates/auth_header.php";
                         </div>
                         <div class="form-group mb-4">
                             <div class="col-sm-12 text-center">
-                                <a href="admin.php">-> Login Petugas</a>
+                                <a href="admin.php">Login Petugas</a>
                             </div>
                         </div>
                     </form>
