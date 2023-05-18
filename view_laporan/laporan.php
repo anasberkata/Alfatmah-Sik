@@ -5,15 +5,27 @@ include "../templates/header.php";
 $rombel = query("SELECT * FROM rombel");
 $tahun_ajaran = query("SELECT * FROM tahun_ajaran");
 
+if (isset($_POST["search"])) {
+    $id_rombel = $_POST["id_rombel"];
+    $id_tahun_ajaran = $_POST["id_tahun_ajaran"];
 
-$siswa = query("
+    $siswa = query("
+    SELECT * FROM siswa
+    INNER JOIN rombel ON rombel.id_rombel = siswa.id_rombel
+    INNER JOIN tahun_ajaran ON tahun_ajaran.id_tahun_ajaran = siswa.id_tahun_ajaran
+    INNER JOIN guru ON guru.id_guru = rombel.id_guru
+    WHERE siswa.id_rombel = $id_rombel
+    ORDER BY siswa.id_tahun_ajaran ASC, rombel.rombel ASC
+");
+} else {
+    $siswa = query("
     SELECT * FROM siswa
     INNER JOIN rombel ON rombel.id_rombel = siswa.id_rombel
     INNER JOIN tahun_ajaran ON tahun_ajaran.id_tahun_ajaran = siswa.id_tahun_ajaran
     INNER JOIN guru ON guru.id_guru = rombel.id_guru
     ORDER BY siswa.id_tahun_ajaran ASC, rombel.rombel ASC
 ");
-
+}
 
 $bpp_nominal = query("SELECT * FROM jenis_pembayaran WHERE id_jenis_pembayaran = 1")[0];
 $bbp_nominal = query("SELECT * FROM jenis_pembayaran WHERE id_jenis_pembayaran = 2")[0];
@@ -46,7 +58,7 @@ $total_pembayaran = $bpp_nominal["nominal"] + ($bbp_nominal["nominal"] * 12);
                                 </select>
                             </div>
                             <div class="col-5 border-bottom">
-                                <select class="form-select shadow-none p-0 border-0" name="id_rombel">
+                                <select class="form-select shadow-none p-0 border-0" name="id_tahun_ajaran">
                                     <option>Pilih Tahun Ajaran</option>
                                     <?php foreach ($tahun_ajaran as $ta): ?>
                                         <option value="<?= $ta["id_tahun_ajaran"]; ?>"><?= $ta["tahun_ajaran"]; ?></option>
@@ -71,6 +83,29 @@ $total_pembayaran = $bpp_nominal["nominal"] + ($bbp_nominal["nominal"] * 12);
                         </div>
                     </form>
                 </div>
+
+                <?php if (isset($_POST["id_rombel"])):
+                    $id_rombel = $_POST["id_rombel"];
+                    $id_tahun_ajaran = $_POST["id_tahun_ajaran"];
+                    $kelas = query("SELECT * FROM rombel INNER JOIN guru ON rombel.id_guru = guru.id_guru WHERE id_rombel = $id_rombel")[0];
+                    $ta = query("SELECT * FROM tahun_ajaran WHERE id_tahun_ajaran = $id_tahun_ajaran")[0];
+                    ?>
+                    <div class="my-3">
+                        <p>
+                            Kelas : <strong>
+                                <?= $kelas["rombel"] ?>
+                            </strong>
+                            <br>
+                            Wali Kelas : <strong>
+                                <?= $kelas["nama_guru"] ?>
+                            </strong>
+                            <br>
+                            Tahun Pelajaran : <strong>
+                                <?= $ta["tahun_ajaran"] ?>
+                            </strong>
+                        </p>
+                    </div>
+                <?php endif; ?>
 
                 <div class="table-responsive">
                     <table class="no-wrap" id="data-table" cellpadding="20" cellspacing="0">
@@ -101,7 +136,13 @@ $total_pembayaran = $bpp_nominal["nominal"] + ($bbp_nominal["nominal"] * 12);
                                     11 => "NOVEMBER",
                                     12 => "DESEMBER"
                                 );
-                                for ($j = 1; $j <= 12; $j++):
+                                for ($j = 7; $j <= 12; $j++):
+                                    ?>
+                                    <th>
+                                        <?= $bulanIndo[$j]; ?>
+                                    </th>
+                                <?php endfor; ?>
+                                <?php for ($j = 1; $j <= 6; $j++):
                                     ?>
                                     <th>
                                         <?= $bulanIndo[$j]; ?>
@@ -112,12 +153,26 @@ $total_pembayaran = $bpp_nominal["nominal"] + ($bbp_nominal["nominal"] * 12);
                         <tbody>
                             <?php $i = 1; ?>
                             <?php foreach ($siswa as $s):
-                                $bpp_dibayar = query("
-                                    SELECT SUM(nominal_pembayaran) AS amount FROM pembayaran WHERE id_jenis_pembayaran = 1 AND id_siswa = {$s['id_siswa']}
-                                ")[0];
-                                $bbp_dibayar = query("
-                                    SELECT SUM(nominal_pembayaran) AS amount FROM pembayaran WHERE id_jenis_pembayaran = 2 AND id_siswa = {$s['id_siswa']}
-                                ")[0];
+
+                                if (isset($_POST["id_rombel"])) {
+                                    $id_rombel = $_POST["id_rombel"];
+                                    $id_tahun_ajaran = $_POST["id_tahun_ajaran"];
+
+                                    $bpp_dibayar = query("
+                                        SELECT SUM(nominal_pembayaran) AS amount FROM pembayaran WHERE id_jenis_pembayaran = 1 AND id_siswa = {$s['id_siswa']} AND id_rombel = $id_rombel AND id_tahun_ajaran = $id_tahun_ajaran
+                                    ")[0];
+                                    $bbp_dibayar = query("
+                                        SELECT SUM(nominal_pembayaran) AS amount FROM pembayaran WHERE id_jenis_pembayaran = 2 AND id_siswa = {$s['id_siswa']} AND id_rombel = $id_rombel AND id_tahun_ajaran = $id_tahun_ajaran
+                                    ")[0];
+                                } else {
+                                    $bpp_dibayar = query("
+                                        SELECT SUM(nominal_pembayaran) AS amount FROM pembayaran WHERE id_jenis_pembayaran = 1 AND id_siswa = {$s['id_siswa']}
+                                    ")[0];
+                                    $bbp_dibayar = query("
+                                        SELECT SUM(nominal_pembayaran) AS amount FROM pembayaran WHERE id_jenis_pembayaran = 2 AND id_siswa = {$s['id_siswa']}
+                                    ")[0];
+                                }
+
                                 $sisa_pembayaran = $total_pembayaran - $bpp_dibayar["amount"] - $bbp_dibayar["amount"];
                                 ?>
                                 <tr>
@@ -128,19 +183,29 @@ $total_pembayaran = $bpp_nominal["nominal"] + ($bbp_nominal["nominal"] * 12);
                                         <?= $s["nama_siswa"]; ?>
                                     </td>
                                     <td class="txt-oflo">Rp.
-                                        <?= number_format($bpp_nominal["nominal"], 2, ',', '.'); ?>
+                                        <?= number_format($bpp_nominal["nominal"], 0, ',', '.'); ?>
                                     </td>
                                     <td class="txt-oflo">Rp.
-                                        <?= number_format($bpp_dibayar["amount"], 2, ',', '.'); ?>
+                                        <?= number_format($bpp_dibayar["amount"], 0, ',', '.'); ?>
                                     </td>
 
 
 
                                     <?php
-                                    $rekap_bbp = query("
+                                    if (isset($_POST["id_rombel"])) {
+                                        $id_rombel = $_POST["id_rombel"];
+                                        $id_tahun_ajaran = $_POST["id_tahun_ajaran"];
+
+                                        $rekap_bbp = query("
+                                                    SELECT * FROM pembayaran
+                                                    WHERE id_jenis_pembayaran = 2 AND id_siswa = {$s['id_siswa']} AND id_rombel = $id_rombel AND id_tahun_ajaran = $id_tahun_ajaran
+                                                ");
+                                    } else {
+                                        $rekap_bbp = query("
                                                     SELECT * FROM pembayaran
                                                     WHERE id_jenis_pembayaran = 2 AND id_siswa = {$s['id_siswa']}
                                                 ");
+                                    }
 
                                     $rekap_bbp_arr = array_fill(1, 12, 0);
 
@@ -151,7 +216,7 @@ $total_pembayaran = $bpp_nominal["nominal"] + ($bbp_nominal["nominal"] * 12);
                                     }
                                     ?>
 
-                                    <?php for ($j = 1; $j <= 12; $j++): ?>
+                                    <?php for ($j = 7; $j <= 12; $j++): ?>
                                         <?php
                                         // $namaBulan = DateTime::createFromFormat('!m', $j)->format('F');
                                         $nominalBulan = isset($rekap_bbp_arr[$j]) ? $rekap_bbp_arr[$j] : 0;
@@ -159,29 +224,39 @@ $total_pembayaran = $bpp_nominal["nominal"] + ($bbp_nominal["nominal"] * 12);
                                         <td class="txt-oflo">
                                             <!-- <?= $namaBulan; ?><br> -->
                                             Rp.
-                                            <?= number_format($nominalBulan, 2, ',', '.'); ?>
+                                            <?= number_format($nominalBulan, 0, ',', '.'); ?>
+                                        </td>
+                                    <?php endfor; ?>
+                                    <?php for ($j = 1; $j <= 6; $j++): ?>
+                                        <?php
+                                        // $namaBulan = DateTime::createFromFormat('!m', $j)->format('F');
+                                        $nominalBulan = isset($rekap_bbp_arr[$j]) ? $rekap_bbp_arr[$j] : 0;
+                                        ?>
+                                        <td class="txt-oflo">
+                                            <!-- <?= $namaBulan; ?><br> -->
+                                            Rp.
+                                            <?= number_format($nominalBulan, 0, ',', '.'); ?>
                                         </td>
                                     <?php endfor; ?>
 
 
 
-
                                     <td class="txt-oflo">Rp.
-                                        <?= number_format($bbp_dibayar["amount"], 2, ',', '.'); ?>
+                                        <?= number_format($bbp_dibayar["amount"], 0, ',', '.'); ?>
                                     </td>
                                     <td class="txt-oflo">Rp.
-                                        <?= number_format($sisa_pembayaran, 2, ',', '.'); ?>
+                                        <?= number_format($sisa_pembayaran, 0, ',', '.'); ?>
                                     </td>
                                     <td>Rp.
-                                        <?= number_format($total_pembayaran, 2, ',', '.'); ?>
+                                        <?= number_format($total_pembayaran, 0, ',', '.'); ?>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>
                             <?php endforeach; ?>
-                            <tr>
-                                <td colspan="16" class="text-center">TOTAL</td>
+                            <!-- <tr>
+                                <td colspan="17" class="text-end">TOTAL</td>
                                 <td></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
