@@ -5,6 +5,7 @@ include "../templates/header.php";
 $rombel = query("SELECT * FROM rombel");
 $tahun_ajaran = query("SELECT * FROM tahun_ajaran");
 
+
 $siswa = query("
     SELECT * FROM siswa
     INNER JOIN rombel ON rombel.id_rombel = siswa.id_rombel
@@ -12,6 +13,7 @@ $siswa = query("
     INNER JOIN guru ON guru.id_guru = rombel.id_guru
     ORDER BY siswa.id_tahun_ajaran ASC, rombel.rombel ASC
 ");
+
 
 $bpp_nominal = query("SELECT * FROM jenis_pembayaran WHERE id_jenis_pembayaran = 1")[0];
 $bbp_nominal = query("SELECT * FROM jenis_pembayaran WHERE id_jenis_pembayaran = 2")[0];
@@ -32,6 +34,42 @@ $total_pembayaran = $bpp_nominal["nominal"] + ($bbp_nominal["nominal"] * 12);
             <div class="white-box">
                 <div class="d-md-flex mb-3">
                     <h3 class="col-12 col-md-6 box-title mb-0">Data Rekap Laporan</h3>
+
+                    <form class="col-12 col-md-6 app-search me-3" method="post" action="">
+                        <div class="row">
+                            <div class="col-4 border-bottom">
+                                <select class="form-select shadow-none p-0 border-0" name="id_rombel">
+                                    <option>Pilih Rombel</option>
+                                    <?php foreach ($rombel as $r): ?>
+                                        <option value="<?= $r["id_rombel"]; ?>"><?= $r["rombel"]; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col-5 border-bottom">
+                                <select class="form-select shadow-none p-0 border-0" name="id_rombel">
+                                    <option>Pilih Tahun Ajaran</option>
+                                    <?php foreach ($tahun_ajaran as $ta): ?>
+                                        <option value="<?= $ta["id_tahun_ajaran"]; ?>"><?= $ta["tahun_ajaran"]; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+                                    <button type="submit" name="search" class="btn btn-info">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                    <?php if (!isset($_POST["id_rombel"])): ?>
+                                        <a href="laporan_print.php?id_rombel=0&id_tahun_ajaran=0" name="print"
+                                            class="btn btn-warning" target="_blank"><i class="fas fa-print"></i></a>
+                                    <?php else: ?>
+                                        <a href="laporan_print.php?id_rombel=<?= $_POST["id_rombel"]; ?>&id_tahun_ajaran=<?= $_POST["id_tahun_ajaran"]; ?>"
+                                            name="print" class="btn btn-warning" target="_blank"><i
+                                                class="fas fa-print"></i></a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
 
                 <div class="table-responsive">

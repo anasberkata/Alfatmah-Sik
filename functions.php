@@ -372,6 +372,7 @@ function siswa_delete($id_siswa)
 {
     global $conn;
 
+    $pembayaran_delete = mysqli_query($conn, "DELETE FROM pembayaran WHERE id_siswa = $id_siswa");
     $siswa_delete = mysqli_query($conn, "DELETE FROM siswa WHERE id_siswa = $id_siswa");
 
     return mysqli_affected_rows($conn);
@@ -557,9 +558,14 @@ function pembayaran_bpp_add($data)
 
     $status = $data["status"];
 
+    $siswa_pilihan = query("SELECT * FROM siswa INNER JOIN rombel ON rombel.id_rombel = siswa.id_rombel INNER JOIN tahun_ajaran ON tahun_ajaran.id_tahun_ajaran = siswa.id_tahun_ajaran WHERE id_siswa = $id_siswa")[0];
+
+    $id_rombel = $siswa_pilihan["id_rombel"];
+    $id_tahun_ajaran = $siswa_pilihan["id_tahun_ajaran"];
+
     $query = "INSERT INTO pembayaran
 				VALUES
-			(NULL, '$id_siswa', '$id_jenis_pembayaran', '$bbp_bulan', '$bbp_tahun', '$nominal_pembayaran', '$tanggal_pembayaran', '$bukti', '$status')
+			(NULL, '$id_siswa', '$id_jenis_pembayaran', '$bbp_bulan', '$bbp_tahun', '$nominal_pembayaran', '$tanggal_pembayaran', '$bukti', '$status', '$id_rombel', '$id_tahun_ajaran')
 			";
 
     mysqli_query($conn, $query);
@@ -585,10 +591,14 @@ function pembayaran_bbp_add($data)
     }
 
     $status = $data["status"];
+    $siswa_pilihan = query("SELECT * FROM siswa INNER JOIN rombel ON rombel.id_rombel = siswa.id_rombel INNER JOIN tahun_ajaran ON tahun_ajaran.id_tahun_ajaran = siswa.id_tahun_ajaran WHERE id_siswa = $id_siswa")[0];
+
+    $id_rombel = $siswa_pilihan["id_rombel"];
+    $id_tahun_ajaran = $siswa_pilihan["id_tahun_ajaran"];
 
     $query = "INSERT INTO pembayaran
 				VALUES
-			(NULL, '$id_siswa', '$id_jenis_pembayaran', '$bbp_bulan', '$bbp_tahun', '$nominal_pembayaran', '$tanggal_pembayaran', '$bukti', '$status')
+			(NULL, '$id_siswa', '$id_jenis_pembayaran', '$bbp_bulan', '$bbp_tahun', '$nominal_pembayaran', '$tanggal_pembayaran', '$bukti', '$status', '$id_rombel', '$id_tahun_ajaran')
 			";
 
     mysqli_query($conn, $query);
