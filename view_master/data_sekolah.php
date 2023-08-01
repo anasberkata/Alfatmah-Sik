@@ -64,8 +64,7 @@ if (isset($_POST["edit_data_sekolah"])) {
                         <div class="col-12 col-md-6">
                             <div class="form-group mb-4">
                                 <label class="col-md-12 p-0">Logo</label>
-                                <img src="../assets/img/logo_data_sekolah/<?= $ds["logo"]; ?>"
-                                    class="img-thumbnail w-50 mb-3">
+                                <img src="../assets/img/<?= $ds["logo"]; ?>" class="img-thumbnail w-50 mb-3">
                                 <div class="col-md-12 border-bottom p-0">
                                     <input type="hidden" name="logo_lama" value="<?= $ds["logo"]; ?>" />
                                     <input type="file" class="form-control p-0 border-0" name="logo" />

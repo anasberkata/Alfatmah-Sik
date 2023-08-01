@@ -19,50 +19,53 @@ $total_notif = count($notif_pembayaran);
                     </a>
                 </li>
 
-                <li class="sidebar-header d-none d-lg-block mt-3">Data Master</li>
+                <?php if ($user["role_id"] == 1): ?>
+                    <li class="sidebar-header d-none d-lg-block mt-3">Data Master</li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_master/guru.php"
-                        aria-expanded="false">
-                        <i class="fas fa-user-secret" aria-hidden="true"></i>
-                        <span class="hide-menu">Data Guru</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_master/rombel.php"
-                        aria-expanded="false">
-                        <i class=" fas fa-id-badge" aria-hidden="true"></i>
-                        <span class="hide-menu">Data Rombel</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_master/siswa.php"
-                        aria-expanded="false">
-                        <i class="fas fa-users" aria-hidden="true"></i>
-                        <span class="hide-menu">Data Siswa</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_master/tahun_ajaran.php"
-                        aria-expanded="false">
-                        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                        <span class="hide-menu">Data Tahun Ajaran</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_master/pembayaran.php"
-                        aria-expanded="false">
-                        <i class="fas fa-chart-pie" aria-hidden="true"></i>
-                        <span class="hide-menu">Jenis Pembayaran</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_master/kwitansi.php"
-                        aria-expanded="false">
-                        <i class="fas fa-file" aria-hidden="true"></i>
-                        <span class="hide-menu">Pengaturan Kwitansi</span>
-                    </a>
-                </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_master/guru.php"
+                            aria-expanded="false">
+                            <i class="fas fa-user-secret" aria-hidden="true"></i>
+                            <span class="hide-menu">Data Guru</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_master/rombel.php"
+                            aria-expanded="false">
+                            <i class=" fas fa-id-badge" aria-hidden="true"></i>
+                            <span class="hide-menu">Data Rombel</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_master/siswa.php"
+                            aria-expanded="false">
+                            <i class="fas fa-users" aria-hidden="true"></i>
+                            <span class="hide-menu">Data Siswa</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_master/tahun_ajaran.php"
+                            aria-expanded="false">
+                            <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                            <span class="hide-menu">Data Tahun Ajaran</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_master/pembayaran.php"
+                            aria-expanded="false">
+                            <i class="fas fa-chart-pie" aria-hidden="true"></i>
+                            <span class="hide-menu">Jenis Pembayaran</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_master/data_sekolah.php"
+                            aria-expanded="false">
+                            <i class="fas fa-file" aria-hidden="true"></i>
+                            <span class="hide-menu">Pengaturan Kwitansi</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
 
                 <li class="sidebar-header d-none d-lg-block mt-3">Data Keuangan</li>
 
@@ -103,13 +106,15 @@ $total_notif = count($notif_pembayaran);
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_pengguna/pengguna.php"
-                        aria-expanded="false">
-                        <i class="far fa-address-card" aria-hidden="true"></i>
-                        <span class="hide-menu">Pengguna</span>
-                    </a>
-                </li>
+                <?php if ($user["role_id"] == 1): ?>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../view_pengguna/pengguna.php"
+                            aria-expanded="false">
+                            <i class="far fa-address-card" aria-hidden="true"></i>
+                            <span class="hide-menu">Pengguna</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
 
                 <li class="sidebar-header d-none d-lg-block mt-3">Menus</li>
 
